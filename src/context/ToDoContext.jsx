@@ -11,7 +11,7 @@ const getLocalStorageToDos = () => {
 export const ToDoContext = createContext();
 
 export const ToDoProvider = ({ children }) => {
-    const [toDos, setToDos] = useState({});
+    const [toDos, setToDos] = useState([]);
     
     useEffect(() => {
         const storedToDos = getLocalStorageToDos();
