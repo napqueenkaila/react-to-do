@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import styled from "styled-components";
 import { Form } from "../components/FormElements/Form";
 import useLocalState from "../utils/LocalStorage";
-import { Link } from "react-router-dom";
 
 const AddToDoContainer = styled.div`
   font-family: Inter;
@@ -47,6 +47,7 @@ const AddToDo = () => {
   });
 
   const [toDos, setToDos] = useLocalState("toDos", []);
+  const navigate = useNavigate();
 
   const submitNewToDo = (e) => {
     e.preventDefault();
@@ -63,6 +64,7 @@ const AddToDo = () => {
       subtasks: [],
       tags: [],
     });
+    navigate("/")
   };
 
   console.log(formData);
