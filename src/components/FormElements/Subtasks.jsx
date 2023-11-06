@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { PropTypes } from "prop-types";
 import styled from "styled-components";
+import { v4 as uuid } from "uuid";
 
 const Container = styled.div`
   width: 100%;
@@ -20,6 +21,7 @@ const Input = styled.input`
   border: 1px solid #e2e2e2;
   padding: 20px;
 `;
+const SubtaskList = styled.ol``;
 
 const Subtasks = ({ subtasks, handleSubtaskChange }) => {
   const [subtaskItem, setSubtaskItem] = useState("");
@@ -27,7 +29,7 @@ const Subtasks = ({ subtasks, handleSubtaskChange }) => {
   const handleAddSubtask = (e) => {
     e.preventDefault();
     let subtaskArray = subtaskItem
-      ? [...subtasks, { subtask: subtaskItem }]
+      ? [...subtasks, { id: uuid(), subtask: subtaskItem }]
       : "";
     handleSubtaskChange(subtaskArray);
     setSubtaskItem("");
@@ -46,6 +48,13 @@ const Subtasks = ({ subtasks, handleSubtaskChange }) => {
         }}
       ></Input>
       <button onClick={handleAddSubtask}>Add subtask</button>
+      <SubtaskList>
+        {subtasks.map((subtask) => {
+          return (
+            <li key={subtask.id}>{subtask.subtask}</li>
+          )
+        })}
+      </SubtaskList>
     </Container>
   );
 };

@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
+import { PropTypes } from "prop-types";
 import styled from "styled-components";
 
 
-const Header = styled.div`
+const HeaderDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
-const EditButton = styled.i`
+const HeaderButtons = styled.i`
   background-color: rgba(13, 153, 255, 0.1);
   padding: 10px;
   border-radius: 90px;
@@ -20,17 +21,22 @@ const Links = styled(Link)`
   color: #000;
 `;
 
-const CardHeader = ({toDos}) => {
+const CardHeader = ({toDo}) => {
     return (
       <div>
-        <Header>
-          <h3>{toDos[index].toDoName}</h3>
+        <HeaderDiv>
+          <h3>{toDo.toDoName}</h3>
           <Links to={`/editToDo/${toDo.id}`}>
-            <EditButton className="fa-solid fa-pen-to-square"></EditButton>
+            <HeaderButtons className="fa-solid fa-pen-to-square"/>
           </Links>
-        </Header>
+          <HeaderButtons className="fa-solid fa-check" />
+        </HeaderDiv>
       </div>
     );
+};
+
+CardHeader.propTypes = {
+  toDo: PropTypes.object,
 };
 
 export default CardHeader;

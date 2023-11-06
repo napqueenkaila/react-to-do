@@ -17,21 +17,25 @@ const AddToDoContainer = styled.div`
 const PageHeader = styled.div`
   display: flex;
   align-items: center;
-  gap: 80px;
+  justify-content:center;
   width: 100%;
   margin-bottom: 35px;
-  border: 3px red solid;
+  position: relative
 `;
 
 const PageTitle = styled.h1`
   font-size: 24px;
   color: #000;
+  font-weight: 500;
 `;
 
 const BackButton = styled.i`
   background: #fff;
   padding: 11px;
   border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 16px;
 `;
 
 const AddToDo = () => {
