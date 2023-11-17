@@ -68,7 +68,7 @@ const AddToDo = () => {
       subtasks: [],
       tags: [],
     });
-    // navigate("/")
+    navigate("/")
   };
 
   console.log(formData);
@@ -84,7 +84,7 @@ const AddToDo = () => {
       <Form
         formData={formData}
         setFormData={setFormData}
-        submitNewToDo={submitNewToDo}
+        submitToDo={submitNewToDo}
       />
     </AddToDoContainer>
   );

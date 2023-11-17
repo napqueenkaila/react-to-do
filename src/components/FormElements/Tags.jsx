@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { PropTypes } from "prop-types";
 import styled from "styled-components";
+import { v4 as uuid } from "uuid";
 
 const Container = styled.div`
   width: 100%;
@@ -12,6 +13,8 @@ const Container = styled.div`
 const Label = styled.label`
   color: #090003;
   font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
 `;
 
 const Input = styled.input`
@@ -26,7 +29,9 @@ const Tags = ({ tags, handleTagChange }) => {
 
   const handleAddTag = (e) => {
     e.preventDefault();
-    let tagArray = tag ? [tags, { tagItem: tag }] : "";
+    let tagArray = tag
+      ? [...tags, { id: uuid(), tagItem: tag }]
+      : "";
     handleTagChange(tagArray);
     setTag("");
   };

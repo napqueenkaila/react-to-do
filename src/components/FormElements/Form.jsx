@@ -28,9 +28,10 @@ const SaveButton = styled.button`
   padding: 20px 50px;
   border: none;
   font-size: 18px;
+  margin-top: 30px;
 `;
 
-export const Form = ({ formData, setFormData, submitNewToDo }) => {
+export const Form = ({ formData, setFormData, submitToDo }) => {
   const handleFormChange = (e) => {
     setFormData((prevFormData) => {
       return {
@@ -38,7 +39,6 @@ export const Form = ({ formData, setFormData, submitNewToDo }) => {
         [e.target.name]: e.target.value,
       };
     });
-    console.log(e.target.id)
   };
 
   const handleSubtaskChange = (subtaskArray) => {
@@ -61,7 +61,7 @@ export const Form = ({ formData, setFormData, submitNewToDo }) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    submitNewToDo(e);
+    submitToDo(e);
     console.log("submit")
   };
 
@@ -87,5 +87,5 @@ export const Form = ({ formData, setFormData, submitNewToDo }) => {
 Form.propTypes = {
   formData: PropTypes.object,
   setFormData: PropTypes.func,
-  submitNewToDo: PropTypes.func,
+  submitToDo: PropTypes.func,
 };

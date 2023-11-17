@@ -14,6 +14,7 @@ const Label = styled.label`
   color: #090003;
   font-size: 18px;
   font-weight: 500;
+  margin-bottom: 10px;
 `;
 
 const Input = styled.input`
@@ -33,8 +34,6 @@ const ListItem = styled.li`
   border-radius: 90px;
   // height: 60px;
   // padding: 20px;
-  
-
 `;
 
 const Subtasks = ({ subtasks, handleSubtaskChange }) => {
