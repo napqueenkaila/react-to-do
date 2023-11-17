@@ -48,6 +48,7 @@ const AddToDo = () => {
     time: "",
     subtasks: [],
     tags: [],
+    completed: false,
   });
 
   const [toDos, setToDos] = useLocalState("toDos", []);

@@ -1,8 +1,9 @@
-import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+
 import useLocalState from "../utils/LocalStorage";
 import styled from "styled-components";
 import { Form } from "../components/FormElements/Form";
-import { useState } from "react";
 
 const EditToDoContainer = styled.div`
   display: flex;
@@ -42,7 +43,8 @@ const EditToDo = () => {
   const currentToDoId = useParams().id;
   const current = toDos.find((toDo) => toDo.id === currentToDoId);
   const [currentToDo, setCurrentToDo] = useState(current);
-
+    const navigate = useNavigate();
+    
   const submitEditToDo = (e) => {
     e.preventDefault();
     console.log(currentToDo);
@@ -54,7 +56,8 @@ const EditToDo = () => {
         return toDo;
       }
     });
-    setToDos(updatedToDos);
+      setToDos(updatedToDos);
+    navigate("/")
   };
 
   return (

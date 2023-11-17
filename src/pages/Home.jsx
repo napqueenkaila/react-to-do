@@ -21,17 +21,32 @@ const AddNewButton = styled.button`
 `;
 
 const Home = () => {
-  const [toDos, setToDos] = useLocalState("toDos", [])
+  const [toDos, setToDos] = useLocalState("toDos", []);
+
+  const handleCompleteTask = (id, completed) => {
+    const updatedToDos = toDos.map((toDo) => {
+      if (id === toDo.id) {
+        return { ...toDo, completed: !completed }
+      }
+      else {
+        return {...toDo}
+      }
+    });
+    setToDos(updatedToDos)
+    console.log(updatedToDos)
+  };
 
   return (
     <HomeContainer>
       <div>
         {toDos.map((toDo) => {
           return (
-              <ToDoCard
-                key={toDo.id}
-                toDo={toDo}
-              />
+            <ToDoCard
+              key={toDo.id}
+              toDo={toDo}
+              hasButtons={true}
+              handleCompleteTask={handleCompleteTask}
+            />
           );
         })}
       </div>

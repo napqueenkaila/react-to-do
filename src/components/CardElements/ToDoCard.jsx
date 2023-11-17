@@ -17,11 +17,11 @@ const StyledLink = styled(Link)`
   color: #000;
 `;
 
-const ToDoCard = ({ toDo }) => {
+const ToDoCard = ({ toDo, handleCompleteTask, hasButtons }) => {
   return (
     <>
       <CardContainer key={toDo.id}>
-        <CardHeader toDo={toDo} />
+        <CardHeader toDo={toDo} hasButtons={hasButtons} handleCompleteTask={handleCompleteTask} />
         <StyledLink to={`/toDoDetail/${toDo.id}`}>
           <CardContent toDo={toDo} />
         </StyledLink>
@@ -32,6 +32,8 @@ const ToDoCard = ({ toDo }) => {
 
 ToDoCard.propTypes = {
   toDo: PropTypes.object,
+  hasButtons: PropTypes.bool,
+  handleCompleteTask: PropTypes.func,
 };
 
 export default ToDoCard;

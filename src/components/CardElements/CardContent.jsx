@@ -1,7 +1,14 @@
 import { PropTypes } from "prop-types";
 import styled from "styled-components";
+import { formatDate, formatPriority, formatComplexity } from "../../utils/InputFormat";
 
 const ContentContainer = styled.div``;
+
+const ContentDiv = styled.div`
+display: flex;
+gap: 10px;
+margin: 10px auto;
+`
 
 const StyledIcon = styled.i`
   color: #090003;
@@ -12,23 +19,25 @@ const StyledSpan = styled.span`
 `;
 
 const CardContent = ({ toDo }) => {
+// console.log(toDo)
+
   return (
     <ContentContainer>
-      <div>
+      <ContentDiv>
         <StyledIcon className="fa-regular fa-calendar" />
         <StyledSpan>Due Date:</StyledSpan>
-        <span>{toDo.date}</span>
-      </div>
-      <div>
+        <span>{formatDate(toDo.date, toDo.time)}</span>
+      </ContentDiv>
+      <ContentDiv>
         <StyledIcon className="fa-solid fa-arrow-up" />
         <StyledSpan>Priority:</StyledSpan>
-        <span>{toDo.priority}</span>
-      </div>
-      <div>
+        <span>{formatPriority(toDo.priority)}</span>
+      </ContentDiv>
+      <ContentDiv>
         <StyledIcon className="fa-solid fa-arrows-up-down-left-right" />
         <StyledSpan>Complexity:</StyledSpan>
-        <span>{toDo.complexity}</span>
-      </div>
+        <span>{formatComplexity(toDo.complexity)}</span>
+      </ContentDiv>
     </ContentContainer>
   );
 };
