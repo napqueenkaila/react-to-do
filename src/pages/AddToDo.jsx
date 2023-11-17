@@ -68,7 +68,7 @@ const AddToDo = () => {
       subtasks: [],
       tags: [],
     });
-    navigate("/")
+    // navigate("/")
   };
 
   console.log(formData);

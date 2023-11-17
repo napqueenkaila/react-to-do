@@ -38,6 +38,7 @@ export const Form = ({ formData, setFormData, submitNewToDo }) => {
         [e.target.name]: e.target.value,
       };
     });
+    console.log(e.target.id)
   };
 
   const handleSubtaskChange = (subtaskArray) => {
@@ -61,13 +62,14 @@ export const Form = ({ formData, setFormData, submitNewToDo }) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     submitNewToDo(e);
+    console.log("submit")
   };
 
   return (
     <ToDoForm onSubmit={handleFormSubmit}>
       <ToDoName handleFormChange={handleFormChange} value={formData.toDoName} />
-      <PriorityButtons handleFormChange={handleFormChange} />
-      <ComplexityButtons handleFormChange={handleFormChange} />
+      <PriorityButtons handleFormChange={handleFormChange} priority={formData?.priority} />
+      <ComplexityButtons handleFormChange={handleFormChange} complexity={formData?.complexity} />
       <DateContainer>
         <DueDate handleFormChange={handleFormChange} value={formData.date} />
         <DueTime handleFormChange={handleFormChange} value={formData.time} />

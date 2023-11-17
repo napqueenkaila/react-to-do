@@ -4,11 +4,13 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 30px;
 `;
 
 const Label = styled.label`
   color: #090003;
   font-size: 18px;
+  font-weight: 500;
   margin-bottom: 12px;
 `;
 

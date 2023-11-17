@@ -13,6 +13,7 @@ const Container = styled.div`
 const Label = styled.label`
   color: #090003;
   font-size: 18px;
+  font-weight: 500;
 `;
 
 const Input = styled.input`
@@ -21,7 +22,20 @@ const Input = styled.input`
   border: 1px solid #e2e2e2;
   padding: 20px;
 `;
-const SubtaskList = styled.ol``;
+const SubtaskList = styled.ol`
+  display: flex;
+  flex-direction: column;
+
+`;
+
+const ListItem = styled.li`
+  background: #FFF;
+  border-radius: 90px;
+  // height: 60px;
+  // padding: 20px;
+  
+
+`;
 
 const Subtasks = ({ subtasks, handleSubtaskChange }) => {
   const [subtaskItem, setSubtaskItem] = useState("");
@@ -51,7 +65,7 @@ const Subtasks = ({ subtasks, handleSubtaskChange }) => {
       <SubtaskList>
         {subtasks.map((subtask) => {
           return (
-            <li key={subtask.id}>{subtask.subtask}</li>
+            <ListItem key={subtask.id}>{subtask.subtask}</ListItem>
           )
         })}
       </SubtaskList>
