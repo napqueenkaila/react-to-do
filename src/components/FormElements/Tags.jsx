@@ -24,17 +24,26 @@ const Input = styled.input`
   padding: 20px;
 `;
 
-const Tags = ({ tags, handleTagChange }) => {
+const TagList = styled.ol`
+  display: flex;
+`;
+
+const ListItem = styled.li`
+  background: #fff;
+  border-radius: 90px;
+  padding: 20px;
+`;
+
+const Tags = ({ handleTagChange, tags }) => {
   const [tag, setTag] = useState("");
 
   const handleAddTag = (e) => {
     e.preventDefault();
-    let tagArray = tag
-      ? [...tags, { id: uuid(), tagItem: tag }]
-      : "";
+    let tagArray = tag ? [...tags, { id: uuid(), tagItem: tag }] : "";
     handleTagChange(tagArray);
     setTag("");
   };
+
 
   return (
     <Container>
@@ -49,13 +58,18 @@ const Tags = ({ tags, handleTagChange }) => {
         }}
       ></Input>
       <button onClick={handleAddTag}>Add Tag</button>
+      <TagList>
+        {tags.map((tag) => {
+          return <ListItem key={tag.id}>{tag.tagItem}</ListItem>;
+        })}
+      </TagList>
     </Container>
   );
 };
+
+export default Tags;
 
 Tags.propTypes = {
   tags: PropTypes.array,
   handleTagChange: PropTypes.func,
 };
-
-export default Tags;

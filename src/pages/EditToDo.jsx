@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
-
-import useLocalState from "../utils/LocalStorage";
+import { useContext, useState } from "react";
 import styled from "styled-components";
-import { Form } from "../components/FormElements/Form";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import Form from "../components/FormElements/Form";
+import { ToDoContext } from "../context/ToDoContext";
 
 const EditToDoContainer = styled.div`
   display: flex;
@@ -38,26 +37,24 @@ const BackButton = styled.i`
 `;
 
 const EditToDo = () => {
-  const [toDos, setToDos] = useLocalState("toDos", []);
+  const {toDos, setToDos} = useContext(ToDoContext)
 
   const currentToDoId = useParams().id;
   const current = toDos.find((toDo) => toDo.id === currentToDoId);
   const [currentToDo, setCurrentToDo] = useState(current);
-    const navigate = useNavigate();
-    
+  const navigate = useNavigate();
+
   const submitEditToDo = (e) => {
     e.preventDefault();
-    console.log(currentToDo);
     const updatedToDos = toDos.map((toDo) => {
-      console.log(toDo);
       if (toDo.id === currentToDoId) {
         return currentToDo;
       } else {
         return toDo;
       }
     });
-      setToDos(updatedToDos);
-    navigate("/")
+    setToDos(updatedToDos);
+    navigate("/");
   };
 
   return (

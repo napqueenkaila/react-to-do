@@ -69,7 +69,7 @@ export const PriorityButtons = ({ handleFormChange, priority }) => {
   );
 };
 
-export const ComplexityButtons = ({ handleFormChange, complexity }) => {
+export const ComplexityButtons = ({handleFormChange, complexity}) => {
   return (
     <SectionContainer>
       <Title>Select Complexity Level</Title>
@@ -103,7 +103,6 @@ export const ComplexityButtons = ({ handleFormChange, complexity }) => {
     </SectionContainer>
   );
 };
-
 
 PriorityButtons.propTypes = {
   handleFormChange: PropTypes.func,

@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { v4 as uuid } from "uuid";
 import styled from "styled-components";
-import { Form } from "../components/FormElements/Form";
-import useLocalState from "../utils/LocalStorage";
+import { v4 as uuid } from "uuid";
+import Form from "../components/FormElements/Form";
+import { ToDoContext } from "../context/ToDoContext";
 
 const AddToDoContainer = styled.div`
   font-family: Inter;
@@ -17,10 +17,10 @@ const AddToDoContainer = styled.div`
 const PageHeader = styled.div`
   display: flex;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
   width: 100%;
   margin-bottom: 35px;
-  position: relative
+  position: relative;
 `;
 
 const PageTitle = styled.h1`
@@ -51,7 +51,7 @@ const AddToDo = () => {
     completed: false,
   });
 
-  const [toDos, setToDos] = useLocalState("toDos", []);
+  const {toDos, setToDos} = useContext(ToDoContext)
   const navigate = useNavigate();
 
   const submitNewToDo = (e) => {
@@ -69,11 +69,9 @@ const AddToDo = () => {
       subtasks: [],
       tags: [],
     });
-    navigate("/")
+    navigate("/");
   };
 
-  console.log(formData);
-  // console.log("todos", toDos);
   return (
     <AddToDoContainer>
       <PageHeader>

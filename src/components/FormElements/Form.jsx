@@ -31,7 +31,7 @@ const SaveButton = styled.button`
   margin-top: 30px;
 `;
 
-export const Form = ({ formData, setFormData, submitToDo }) => {
+const Form = ({ formData, setFormData, submitToDo }) => {
   const handleFormChange = (e) => {
     setFormData((prevFormData) => {
       return {
@@ -62,14 +62,19 @@ export const Form = ({ formData, setFormData, submitToDo }) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     submitToDo(e);
-    console.log("submit")
   };
 
   return (
     <ToDoForm onSubmit={handleFormSubmit}>
       <ToDoName handleFormChange={handleFormChange} value={formData.toDoName} />
-      <PriorityButtons handleFormChange={handleFormChange} priority={formData?.priority} />
-      <ComplexityButtons handleFormChange={handleFormChange} complexity={formData?.complexity} />
+      <PriorityButtons
+        handleFormChange={handleFormChange}
+        priority={formData?.priority}
+      />
+      <ComplexityButtons
+        handleFormChange={handleFormChange}
+        complexity={formData?.complexity}
+      />
       <DateContainer>
         <DueDate handleFormChange={handleFormChange} value={formData.date} />
         <DueTime handleFormChange={handleFormChange} value={formData.time} />
@@ -83,6 +88,8 @@ export const Form = ({ formData, setFormData, submitToDo }) => {
     </ToDoForm>
   );
 };
+
+export default Form;
 
 Form.propTypes = {
   formData: PropTypes.object,

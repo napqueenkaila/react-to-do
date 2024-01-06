@@ -26,14 +26,12 @@ const Input = styled.input`
 const SubtaskList = styled.ol`
   display: flex;
   flex-direction: column;
-
 `;
 
 const ListItem = styled.li`
-  background: #FFF;
+  background: #fff;
   border-radius: 90px;
-  // height: 60px;
-  // padding: 20px;
+  padding: 20px;
 `;
 
 const Subtasks = ({ subtasks, handleSubtaskChange }) => {
@@ -47,7 +45,6 @@ const Subtasks = ({ subtasks, handleSubtaskChange }) => {
     handleSubtaskChange(subtaskArray);
     setSubtaskItem("");
   };
-
   return (
     <Container>
       <Label htmlFor="subtasks">Add Checklist for subtasks</Label>
@@ -60,7 +57,7 @@ const Subtasks = ({ subtasks, handleSubtaskChange }) => {
           setSubtaskItem(e.target.value);
         }}
       ></Input>
-      <button onClick={handleAddSubtask}>Add subtask</button>
+      <button onClick={handleAddSubtask}>Add Subtask</button>
       <SubtaskList>
         {subtasks.map((subtask) => {
           return (

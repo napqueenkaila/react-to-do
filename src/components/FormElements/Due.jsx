@@ -51,7 +51,6 @@ export const DueTime = ({value, handleFormChange}) => {
   );
 };
 
-
 DueDate.propTypes = {
   value: PropTypes.string,
   handleFormChange: PropTypes.func,

@@ -1,6 +1,6 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import useLocalState from "../utils/LocalStorage";
+import useLocalState from "../utils/useLocalState";
 import ToDoCard from "../components/CardElements/ToDoCard";
 
 const PageContainer = styled.div`
@@ -81,18 +81,20 @@ const ToDoDetail = () => {
 
   const currentToDoId = useParams().id;
   const currentToDo = toDos.find((toDo) => toDo.id === currentToDoId);
+  const navigate = useNavigate();
 
   const handleDeleteTask = (e) => {
     e.preventDefault();
     const updatedToDos = toDos.filter((toDo) => toDo.id !== currentToDoId);
     setToDos(updatedToDos);
+    navigate("/")
   };
 
   return (
     <PageContainer>
       <PageHeader>
         <Link to="/">
-          <BackButton className="fa-solid fa-arrow-left" />
+          <BackButton className="fa-solid fa-arrow-left"></BackButton>
         </Link>
         <PageTitle>Task Details</PageTitle>
       </PageHeader>
@@ -114,7 +116,7 @@ const ToDoDetail = () => {
         <EditTask to={`/editToDo/${currentToDoId}`}>Edit Task</EditTask>
         <DeleteTask onClick={handleDeleteTask}>Delete Task</DeleteTask>
         <RepeatTask>
-          <i className="fa-solid fa-repeat"></i> Repeat Task
+          <i className="fa-solid fa-repeat"></i>Repeat Task
         </RepeatTask>
       </ButtonContainer>
     </PageContainer>
