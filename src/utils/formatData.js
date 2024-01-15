@@ -17,20 +17,19 @@ export const getDateObj = (date, time) => {
     return new Date(year, month - 1, day, hour, minute);
   }
 };
+//add formatting for when only date is set
 
 export const formatDate = (dateObj) => {
   let dueObj = {};
 
-  if (dateObj === "undefined" || dateObj === "") {
-    dueObj.date = "Not selected"
+  if (dateObj === "undefined") {
+    dueObj = { date: "Not selected"};
   }
 
   const todaysDate = new Date();
   const dateDifference = (dateObj - todaysDate) / (1000 * 60 * 60 * 24);
   const simpleTodaysDate = todaysDate.toLocaleDateString();
   const simpleDateObj = dateObj.toLocaleDateString();
-
-  
 
   let dueTime = dateObj.toLocaleTimeString("en-US", {
     hour: "2-digit",

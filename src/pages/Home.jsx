@@ -48,11 +48,12 @@ const ToDoDiv = styled.div`
 const Home = () => {
   const { toDos, setToDos } = useContext(ToDoContext);
 
+
   const setTags = new Set(
-    toDos
+   toDos ? toDos
       .map((toDo) => toDo.tags)
       .flat()
-      .map((tag) => tag.tag)
+      .map((tag) => tag.tag) : null
   );
 
   const allTags = [...setTags];
@@ -61,7 +62,7 @@ const Home = () => {
   const [sortType, setSortType] = useState("");
   const [filterTags, setFilterTags] = useState(allTags);
 
-  if (filterTags.length === 0) {
+  if (toDos && filterTags.length === 0) {
     setFilterTags(allTags);
   }
 
