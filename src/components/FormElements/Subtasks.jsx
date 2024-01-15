@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { PropTypes } from "prop-types";
 import styled from "styled-components";
 import { v4 as uuid } from "uuid";
+import { ToDoContext } from "../../context/ToDoContext";
+import { useParams } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -34,17 +36,34 @@ const ListItem = styled.li`
   padding: 20px;
 `;
 
+const CompleteSubtaskBtn = styled.button`
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+`;
+
+const RemoveSubtaskBtn = styled.button`
+  border: none;
+`;
+
 const Subtasks = ({ subtasks, handleSubtaskChange }) => {
-  const [subtaskItem, setSubtaskItem] = useState("");
+  const [subtaskItem, setSubtaskItem] = useState(""); 
 
   const handleAddSubtask = (e) => {
     e.preventDefault();
     let subtaskArray = subtaskItem
-      ? [...subtasks, { id: uuid(), subtask: subtaskItem }]
+      ? [...subtasks, { id: uuid(), subtask: subtaskItem, completed: false }]
       : "";
     handleSubtaskChange(subtaskArray);
     setSubtaskItem("");
   };
+  
+  const removeSubtask = (subtaskId) => {
+    const updatedSubtasks = subtasks.filter(subtask => subtask.id !== subtaskId)
+    handleSubtaskChange(updatedSubtasks)
+  }
+
   return (
     <Container>
       <Label htmlFor="subtasks">Add Checklist for subtasks</Label>
@@ -61,8 +80,13 @@ const Subtasks = ({ subtasks, handleSubtaskChange }) => {
       <SubtaskList>
         {subtasks.map((subtask) => {
           return (
-            <ListItem key={subtask.id}>{subtask.subtask}</ListItem>
-          )
+            <ListItem key={subtask.id}>
+              {subtask.subtask}
+              <RemoveSubtaskBtn onClick={() => removeSubtask(subtask.id)}>
+                <i className="fa-solid fa-trash"></i>
+              </RemoveSubtaskBtn>
+            </ListItem>
+          );
         })}
       </SubtaskList>
     </Container>
@@ -72,6 +96,7 @@ const Subtasks = ({ subtasks, handleSubtaskChange }) => {
 Subtasks.propTypes = {
   subtasks: PropTypes.array,
   handleSubtaskChange: PropTypes.func,
+  handleRemoveSubtask: PropTypes.func,
 };
 
 export default Subtasks;

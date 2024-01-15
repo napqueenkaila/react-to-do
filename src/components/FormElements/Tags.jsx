@@ -39,11 +39,10 @@ const Tags = ({ handleTagChange, tags }) => {
 
   const handleAddTag = (e) => {
     e.preventDefault();
-    let tagArray = tag ? [...tags, { id: uuid(), tagItem: tag }] : "";
+    let tagArray = tag ? [...tags, { id: uuid(), tag: tag }] : "";
     handleTagChange(tagArray);
     setTag("");
   };
-
 
   return (
     <Container>
@@ -60,7 +59,7 @@ const Tags = ({ handleTagChange, tags }) => {
       <button onClick={handleAddTag}>Add Tag</button>
       <TagList>
         {tags.map((tag) => {
-          return <ListItem key={tag.id}>{tag.tagItem}</ListItem>;
+          return <ListItem key={tag.id}>{tag.tag}</ListItem>;
         })}
       </TagList>
     </Container>

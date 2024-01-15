@@ -2,6 +2,8 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import useLocalState from "../utils/useLocalState";
 import ToDoCard from "../components/CardElements/ToDoCard";
+import { useContext } from "react";
+import { ToDoContext } from "../context/ToDoContext";
 
 const PageContainer = styled.div`
   max-width: 500px;
@@ -76,8 +78,19 @@ const RepeatTask = styled.button`
   gap: 12px;
 `;
 
+const CompleteSubtaskBtn = styled.button`
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+`;
+
+const RemoveSubtaskBtn = styled.button`
+  border: none
+`;
+
 const ToDoDetail = () => {
-  const [toDos, setToDos] = useLocalState("toDos", []);
+  const { toDos, setToDos } = useContext(ToDoContext);
 
   const currentToDoId = useParams().id;
   const currentToDo = toDos.find((toDo) => toDo.id === currentToDoId);
@@ -87,8 +100,31 @@ const ToDoDetail = () => {
     e.preventDefault();
     const updatedToDos = toDos.filter((toDo) => toDo.id !== currentToDoId);
     setToDos(updatedToDos);
-    navigate("/")
+    navigate("/");
   };
+
+  const handleCompleteSubtask = (id, completed) => {
+    const updatedSubtasks = currentToDo.subtasks.map((subtask) => {
+      if (id === subtask.id) {
+        return { ...subtask, completed: !completed };
+      } else {
+        return { ...subtask };
+      }
+    });
+
+    const updatedToDos = toDos.map((toDo) => {
+      if (currentToDoId === toDo.id) {
+        return { ...toDo, subtasks: updatedSubtasks };
+      } else {
+        return { ...toDo };
+      }
+    });
+    setToDos(updatedToDos);
+  };
+
+  const handleRepeatToDo = () => {
+    console.log("repeat")
+  }
 
   return (
     <PageContainer>
@@ -107,7 +143,27 @@ const ToDoDetail = () => {
           <p>Checklist for subtasks</p>
           <ol>
             {currentToDo.subtasks.map((subtask) => {
-              return <li key={subtask.id}>{subtask.subtask}</li>;
+              return (
+                <li key={subtask.id}>
+                  {subtask.subtask}
+                  <CompleteSubtaskBtn
+                    onClick={() =>
+                      handleCompleteSubtask(subtask.id, subtask.completed)
+                    }
+                    completed={subtask.completed.toString()}
+                    style={
+                      subtask.completed
+                        ? { background: "#0d99ff" }
+                        : { background: "#deecf6" }
+                    }
+                  >
+                    <i className="fa-solid fa-check"></i>
+                  </CompleteSubtaskBtn>
+                  <RemoveSubtaskBtn>
+                    <i className="fa-solid fa-trash"></i>
+                  </RemoveSubtaskBtn>
+                </li>
+              );
             })}
           </ol>
         </div>

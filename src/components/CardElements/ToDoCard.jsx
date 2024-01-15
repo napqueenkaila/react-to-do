@@ -7,9 +7,10 @@ import CardContent from "./CardContent";
 const CardContainer = styled.div`
   border-radius: 18px;
   background: #fff;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   font-family: Inter;
   padding: 20px 12px;
+
 `;
 
 const StyledLink = styled(Link)`

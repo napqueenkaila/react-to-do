@@ -56,7 +56,8 @@ const AddToDo = () => {
 
   const submitNewToDo = (e) => {
     e.preventDefault();
-    const updatedToDos = [...toDos, formData];
+    const updatedToDos = toDos ? [...toDos, formData] : [formData];
+
     setToDos(updatedToDos);
 
     setFormData({

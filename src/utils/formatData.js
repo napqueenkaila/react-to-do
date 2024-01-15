@@ -1,16 +1,54 @@
-import formatRelative from "date-fns/formatRelative";
+const daysOfWeek = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
-export const formatDate = (date, time) => {
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+export const getDateObj = (date, time) => {
   if (date && time) {
     const [year, month, day] = date.split("-");
     const [hour, minute] = time.split(":");
-    const dateObj = new Date(year, month - 1, day, hour, minute);
-    const todaysDate = new Date();
-    const relativeDate = formatRelative(dateObj, todaysDate);
-    const dueDateString =
-      relativeDate.charAt(0).toUpperCase() + relativeDate.slice(1);
-    return dueDateString;
+    return new Date(year, month - 1, day, hour, minute);
   }
+};
+
+export const formatDate = (dateObj) => {
+  let dueObj = {};
+
+  if (dateObj === "undefined" || dateObj === "") {
+    dueObj.date = "Not selected"
+  }
+
+  const todaysDate = new Date();
+  const dateDifference = (dateObj - todaysDate) / (1000 * 60 * 60 * 24);
+  const simpleTodaysDate = todaysDate.toLocaleDateString();
+  const simpleDateObj = dateObj.toLocaleDateString();
+
+  
+
+  let dueTime = dateObj.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  
+  if (simpleDateObj === simpleTodaysDate) {
+    dueObj.date = `Today at ${dueTime}`;
+    dueObj.color = "red";
+  } else if (dateDifference >= 1 && dateDifference < 4) {
+    dueObj.date = `${daysOfWeek[dateObj.getDay()]} at ${dueTime}`;
+    dueObj.color = "orange";
+  } else {
+    dueObj.date = `${months[dateObj.getMonth()]} ${dateObj.getDate()} at ${dueTime}`;
+    dueObj.color = "black";
+  }
+
+  return dueObj;
 };
 
 export const formatPriority = (priority) => {

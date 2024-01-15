@@ -2,14 +2,18 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useContext, useState } from "react";
 import ToDoCard from "../components/CardElements/ToDoCard";
+import Sort from "../components/Sort";
 import { ToDoContext } from "../context/ToDoContext";
+import { sortToDos } from "../utils/sortFunctions";
+import FilterTags from "../components/FilterTags";
 
 const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   max-width: 500px;
-  margin: 0 auto;
+  margin: 1.5rem auto;
 `;
 
 const AddNewButton = styled.button`
@@ -23,32 +27,59 @@ const AddNewButton = styled.button`
 
 const SearchDiv = styled.div`
   width: 100%;
-  margin-bottom: 1rem; 
 `;
 
 const SearchInput = styled.input`
   width: 100%;
   border-radius: 60px;
   padding: 1rem;
+  border: 1px solid var(--Stroke, #e2e2e2);
 `;
 
 const FilterDiv = styled.div`
+  margin: 20px 0;
+  display: flex;
+`;
+
+const ToDoDiv = styled.div`
   width: 100%;
 `;
 
 const Home = () => {
+  const { toDos, setToDos } = useContext(ToDoContext);
 
-  const {toDos, setToDos} = useContext(ToDoContext)
+  const setTags = new Set(
+    toDos
+      .map((toDo) => toDo.tags)
+      .flat()
+      .map((tag) => tag.tag)
+  );
 
-  const [filteredToDos, setFilteredToDos] = useState(toDos)
+  const allTags = [...setTags];
+
+  const [searchInput, setSearchInput] = useState("");
+  const [sortType, setSortType] = useState("");
+  const [filterTags, setFilterTags] = useState(allTags);
+
+  if (filterTags.length === 0) {
+    setFilterTags(allTags);
+  }
+
+  const filteredItems = toDos
+    ? toDos
+        .filter((toDo) => toDo.toDoName.toLowerCase().includes(searchInput))
+        .filter((toDo) =>
+          filterTags.length > 0
+            ? filterTags.some((filterTag) =>
+                toDo.tags.map((tag) => tag.tag).includes(filterTag)
+              )
+            : null
+        )
+    : toDos;
 
   const handleSearchInputChange = (e) => {
-    const searchInput = (e.target.value).toLowerCase()
-    const filteredItems = toDos.filter((toDo) =>
-      toDo.toDoName.toLowerCase().includes(searchInput)
-    )
-    setFilteredToDos(filteredItems)
-  }
+    setSearchInput(e.target.value.toLowerCase());
+  };
 
   const handleCompleteTask = (id, completed) => {
     const updatedToDos = toDos.map((toDo) => {
@@ -71,29 +102,31 @@ const Home = () => {
         ></SearchInput>
       </SearchDiv>
       <FilterDiv>
-        <div>
-          <label htmlFor="sort">
-
-            <select name="sort" id="sort">
-              <option value="default">Default</option>
-              <option value="ascending-priority">Ascending Priority</option>
-              <option value="descending-priority">Descending Priority</option>
-            </select>
-          </label>
-        </div>
+        <Sort setSortType={setSortType} />
+        <FilterTags
+          filterOptions={allTags}
+          filterTags={filterTags}
+          setFilterTags={setFilterTags}
+        />
       </FilterDiv>
-      <div>
-        {filteredToDos.map((toDo) => {
-          return (
-            <ToDoCard
-              key={toDo.id}
-              toDo={toDo}
-              hasButtons={true}
-              handleCompleteTask={handleCompleteTask}
-            />
-          );
-        })}
-      </div>
+      <ToDoDiv>
+        {filteredItems ? (
+          filteredItems
+            .sort((a, b) => sortToDos(a, b, sortType))
+            .map((toDo) => {
+              return (
+                <ToDoCard
+                  key={toDo.id}
+                  toDo={toDo}
+                  hasButtons={true}
+                  handleCompleteTask={handleCompleteTask}
+                />
+              );
+            })
+        ) : (
+          <div>No tasks</div>
+        )}
+      </ToDoDiv>
       <Link to="/addToDo">
         <AddNewButton>+ Add New Task</AddNewButton>
       </Link>

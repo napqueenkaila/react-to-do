@@ -82,6 +82,7 @@ const Form = ({ formData, setFormData, submitToDo }) => {
       <Subtasks
         subtasks={formData.subtasks}
         handleSubtaskChange={handleSubtaskChange}
+        // handleRemoveSubtask={handleRemoveSubtask}
       />
       <Tags tags={formData.tags} handleTagChange={handleTagChange} />
       <SaveButton>Save</SaveButton>

@@ -36,7 +36,7 @@ export const DueDate = ({ value, handleFormChange }) => {
   );
 };
 
-export const DueTime = ({value, handleFormChange}) => {
+export const DueTime = ({ value, handleFormChange }) => {
   return (
     <Container>
       <Label htmlFor="time">Select Time</Label>
