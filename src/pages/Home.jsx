@@ -46,8 +46,7 @@ const ToDoDiv = styled.div`
 `;
 
 const Home = () => {
-  const { toDos, setToDos } = useContext(ToDoContext);
-
+  const { toDos, handleCompleteToDo } = useContext(ToDoContext);
 
   const setTags = new Set(
    toDos ? toDos
@@ -62,6 +61,7 @@ const Home = () => {
   const [sortType, setSortType] = useState("");
   const [filterTags, setFilterTags] = useState(allTags);
 
+  
   if (toDos && filterTags.length === 0) {
     setFilterTags(allTags);
   }
@@ -80,17 +80,6 @@ const Home = () => {
 
   const handleSearchInputChange = (e) => {
     setSearchInput(e.target.value.toLowerCase());
-  };
-
-  const handleCompleteTask = (id, completed) => {
-    const updatedToDos = toDos.map((toDo) => {
-      if (id === toDo.id) {
-        return { ...toDo, completed: !completed };
-      } else {
-        return { ...toDo };
-      }
-    });
-    setToDos(updatedToDos);
   };
 
   return (
@@ -120,7 +109,7 @@ const Home = () => {
                   key={toDo.id}
                   toDo={toDo}
                   hasButtons={true}
-                  handleCompleteTask={handleCompleteTask}
+                  handleCompleteToDo={() => handleCompleteToDo(toDo.id, toDo.completed)}
                 />
               );
             })

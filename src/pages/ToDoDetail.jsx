@@ -1,6 +1,5 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import useLocalState from "../utils/useLocalState";
 import ToDoCard from "../components/CardElements/ToDoCard";
 import { useContext } from "react";
 import { ToDoContext } from "../context/ToDoContext";
@@ -86,45 +85,20 @@ const CompleteSubtaskBtn = styled.button`
 `;
 
 const RemoveSubtaskBtn = styled.button`
-  border: none
+  border: none;
 `;
 
 const ToDoDetail = () => {
-  const { toDos, setToDos } = useContext(ToDoContext);
+  const {
+    toDos,
+    handleDeleteToDo,
+    handleDeleteSubtask,
+    handleCompleteSubtask,
+  } = useContext(ToDoContext);
 
   const currentToDoId = useParams().id;
   const currentToDo = toDos.find((toDo) => toDo.id === currentToDoId);
   const navigate = useNavigate();
-
-  const handleDeleteTask = (e) => {
-    e.preventDefault();
-    const updatedToDos = toDos.filter((toDo) => toDo.id !== currentToDoId);
-    setToDos(updatedToDos);
-    navigate("/");
-  };
-
-  const handleCompleteSubtask = (id, completed) => {
-    const updatedSubtasks = currentToDo.subtasks.map((subtask) => {
-      if (id === subtask.id) {
-        return { ...subtask, completed: !completed };
-      } else {
-        return { ...subtask };
-      }
-    });
-
-    const updatedToDos = toDos.map((toDo) => {
-      if (currentToDoId === toDo.id) {
-        return { ...toDo, subtasks: updatedSubtasks };
-      } else {
-        return { ...toDo };
-      }
-    });
-    setToDos(updatedToDos);
-  };
-
-  const handleRepeatToDo = () => {
-    console.log("repeat")
-  }
 
   return (
     <PageContainer>
@@ -148,7 +122,12 @@ const ToDoDetail = () => {
                   {subtask.subtask}
                   <CompleteSubtaskBtn
                     onClick={() =>
-                      handleCompleteSubtask(subtask.id, subtask.completed)
+                      handleCompleteSubtask(
+                        subtask.id,
+                        subtask.completed,
+                        currentToDo,
+                        currentToDoId
+                      )
                     }
                     completed={subtask.completed.toString()}
                     style={
@@ -159,7 +138,15 @@ const ToDoDetail = () => {
                   >
                     <i className="fa-solid fa-check"></i>
                   </CompleteSubtaskBtn>
-                  <RemoveSubtaskBtn>
+                  <RemoveSubtaskBtn
+                    onClick={() =>
+                      handleDeleteSubtask(
+                        subtask.id,
+                        currentToDo,
+                        currentToDoId
+                      )
+                    }
+                  >
                     <i className="fa-solid fa-trash"></i>
                   </RemoveSubtaskBtn>
                 </li>
@@ -170,7 +157,14 @@ const ToDoDetail = () => {
       </ToDoContainer>
       <ButtonContainer>
         <EditTask to={`/editToDo/${currentToDoId}`}>Edit Task</EditTask>
-        <DeleteTask onClick={handleDeleteTask}>Delete Task</DeleteTask>
+        <DeleteTask
+          onClick={(e) => {
+            handleDeleteToDo(e, currentToDoId);
+            navigate("/");
+          }}
+        >
+          Delete Task
+        </DeleteTask>
         <RepeatTask>
           <i className="fa-solid fa-repeat"></i>Repeat Task
         </RepeatTask>

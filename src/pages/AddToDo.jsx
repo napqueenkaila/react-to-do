@@ -39,6 +39,9 @@ const BackButton = styled.i`
 `;
 
 const AddToDo = () => {
+  const { submitNewToDo } = useContext(ToDoContext);
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     id: uuid(),
     toDoName: "",
@@ -51,28 +54,6 @@ const AddToDo = () => {
     completed: false,
   });
 
-  const {toDos, setToDos} = useContext(ToDoContext)
-  const navigate = useNavigate();
-
-  const submitNewToDo = (e) => {
-    e.preventDefault();
-    const updatedToDos = toDos ? [...toDos, formData] : [formData];
-
-    setToDos(updatedToDos);
-
-    setFormData({
-      id: uuid(),
-      toDoName: "",
-      priority: "",
-      complexity: "",
-      date: "",
-      time: "",
-      subtasks: [],
-      tags: [],
-    });
-    navigate("/");
-  };
-
   return (
     <AddToDoContainer>
       <PageHeader>
@@ -84,7 +65,10 @@ const AddToDo = () => {
       <Form
         formData={formData}
         setFormData={setFormData}
-        submitToDo={submitNewToDo}
+        submitToDo={(e) => {
+          submitNewToDo(e, formData);
+          navigate("/");
+        }}
       />
     </AddToDoContainer>
   );

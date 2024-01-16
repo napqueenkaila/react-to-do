@@ -37,25 +37,12 @@ const BackButton = styled.i`
 `;
 
 const EditToDo = () => {
-  const {toDos, setToDos} = useContext(ToDoContext)
+  const { toDos, updateToDo } = useContext(ToDoContext);
 
   const currentToDoId = useParams().id;
   const current = toDos.find((toDo) => toDo.id === currentToDoId);
   const [currentToDo, setCurrentToDo] = useState(current);
   const navigate = useNavigate();
-
-  const submitEditToDo = (e) => {
-    e.preventDefault();
-    const updatedToDos = toDos.map((toDo) => {
-      if (toDo.id === currentToDoId) {
-        return currentToDo;
-      } else {
-        return toDo;
-      }
-    });
-    setToDos(updatedToDos);
-    navigate("/");
-  };
 
   return (
     <EditToDoContainer>
@@ -68,7 +55,10 @@ const EditToDo = () => {
       <Form
         formData={currentToDo}
         setFormData={setCurrentToDo}
-        submitToDo={submitEditToDo}
+        submitToDo={(e) => {
+          updateToDo(e, currentToDoId, currentToDo);
+          navigate("/");
+        }}
       />
     </EditToDoContainer>
   );
