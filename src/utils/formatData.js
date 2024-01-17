@@ -8,46 +8,92 @@ const daysOfWeek = [
   "Saturday",
 ];
 
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const currentDate = new Date();
+
+const formatDateTime = (dateObj) => {
+  let dueObj = {};
+  const dateDifference = (dateObj - currentDate) / (1000 * 60 * 60 * 24);
+  let dueTime = dateObj.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  //string
+  if (currentDate.toDateString() === dateObj.toDateString()) {
+    dueObj.date = `Today at ${dueTime}`;
+  } else if (dateDifference < 1) {
+    dueObj.date = `Tomorrow at ${dueTime}`;
+  } else if (dateDifference >= 1 && dateDifference < 4) {
+    dueObj.date = `${daysOfWeek[dateObj.getDay()]} at ${dueTime}`;
+  } else {
+    dueObj.date = `${
+      months[dateObj.getMonth()]
+    } ${dateObj.getDate()} at ${dueTime}`;
+  }
+  //colors
+  if (dateDifference < 1) {
+    dueObj.color = "red";
+  } else if (dateDifference >= 1 && dateDifference < 4) {
+    dueObj.color = "orange";
+  } else {
+    dueObj.color = "black";
+  }
+  return dueObj;
+};
+
+const formatDateOnly = (dateObj) => {
+  let dueObj = {};
+  const dateDifference = (dateObj - currentDate) / (1000 * 60 * 60 * 24);
+
+  //string
+  if (dateObj.toDateString() === currentDate.toDateString()) {
+    dueObj.date = `Today`;
+  } else if (dateDifference < 1) {
+    dueObj.date = `Tomorrow`;
+  } else if (dateDifference >= 1 && dateDifference < 4) {
+    dueObj.date = `${daysOfWeek[dateObj.getDay()]}`;
+  } else {
+    dueObj.date = `${months[dateObj.getMonth()]} ${dateObj.getDate()}`;
+  }
+  //colors
+  if (dateDifference < 1) {
+    dueObj.color = "red";
+  } else if (dateDifference >= 1 && dateDifference < 4) {
+    dueObj.color = "orange";
+  } else {
+    dueObj.color = "black";
+  }
+  return dueObj;
+};
 
 export const getDateObj = (date, time) => {
   if (date && time) {
     const [year, month, day] = date.split("-");
     const [hour, minute] = time.split(":");
-    return new Date(year, month - 1, day, hour, minute);
-  }
-};
-//add formatting for when only date is set
-
-export const formatDate = (dateObj) => {
-  let dueObj = {};
-
-  if (dateObj === "undefined") {
-    dueObj = { date: "Not selected"};
-  }
-
-  const todaysDate = new Date();
-  const dateDifference = (dateObj - todaysDate) / (1000 * 60 * 60 * 24);
-  const simpleTodaysDate = todaysDate.toLocaleDateString();
-  const simpleDateObj = dateObj.toLocaleDateString();
-
-  let dueTime = dateObj.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-  
-  if (simpleDateObj === simpleTodaysDate) {
-    dueObj.date = `Today at ${dueTime}`;
-    dueObj.color = "red";
-  } else if (dateDifference >= 1 && dateDifference < 4) {
-    dueObj.date = `${daysOfWeek[dateObj.getDay()]} at ${dueTime}`;
-    dueObj.color = "orange";
+    const dateObj = new Date(year, month - 1, day, hour, minute);
+    return formatDateTime(dateObj);
+  } else if (date) {
+    const [year, month, day] = date.split("-");
+    const dateObj = new Date(year, month - 1, day);
+    return formatDateOnly(dateObj);
   } else {
-    dueObj.date = `${months[dateObj.getMonth()]} ${dateObj.getDate()} at ${dueTime}`;
-    dueObj.color = "black";
+    const dateObj = { date: "NA", color: "black" };
+    return dateObj;
   }
-
-  return dueObj;
 };
 
 export const formatPriority = (priority) => {

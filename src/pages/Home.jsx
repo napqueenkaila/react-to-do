@@ -62,9 +62,10 @@ const Home = () => {
   const [filterTags, setFilterTags] = useState(allTags);
 
   
-  if (toDos && filterTags.length === 0) {
-    setFilterTags(allTags);
-  }
+  // if (toDos && filterTags.length === 0) {
+  //   setFilterTags(allTags);
+  // }
+  console.log(filterTags)
 
   const filteredItems = toDos
     ? toDos

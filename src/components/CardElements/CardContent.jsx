@@ -1,6 +1,10 @@
 import { PropTypes } from "prop-types";
 import styled from "styled-components";
-import { getDateObj, formatDate, formatComplexity, formatPriority } from "../../utils/formatData";
+import {
+  getDateObj,
+  formatComplexity,
+  formatPriority,
+} from "../../utils/formatData";
 
 const ContentContainer = styled.div``;
 
@@ -19,49 +23,48 @@ const StyledSpan = styled.span`
 `;
 
 const DateSpan = styled.span`
-    color: ${(props) => props.color}
+  color: ${(props) => props.color};
 `;
 
 const Tag = styled.div`
-    background: #FFF6E8;
-    padding: 6px 8px;
-    border-radius: 60px;
-    font-size: 12px;
-    text-align: center;
+  background: #fff6e8;
+  padding: 6px 8px;
+  border-radius: 60px;
+  font-size: 12px;
+  text-align: center;
 `;
 
 const CardContent = ({ toDo }) => {
-    const dateObj = getDateObj(toDo.date, toDo.time)
-    const dueDate = formatDate(dateObj)
+  const dateObj = getDateObj(toDo.date, toDo.time);
 
-    return (
-        <ContentContainer>
-            <ContentDiv>
-                <StyledIcon className="fa-regular fa-calendar" />
-                <StyledSpan>Due Date:</StyledSpan>
-                <DateSpan color={dueDate.color}>{dueDate.date}</DateSpan>
-            </ContentDiv>
-            <ContentDiv>
-                <StyledIcon className="fa-solid fa-arrow-up" />
-                <StyledSpan>Priority:</StyledSpan>
-                <span>{formatPriority(toDo.priority)}</span>
-            </ContentDiv>
-            <ContentDiv>
-                <StyledIcon className="fa-solid fa-arrows-up-down-left-right" />
-                <StyledSpan>Complexity:</StyledSpan>
-                <span>{formatComplexity(toDo.complexity)}</span>
-            </ContentDiv>
-            <ContentDiv>
-                {toDo.tags.map((tag) => {
-                    return (<Tag key={tag.id}>{ tag.tag}</Tag>)
-                })}
-            </ContentDiv>
-        </ContentContainer>
-    )
+  return (
+    <ContentContainer>
+      <ContentDiv>
+        <StyledIcon className="fa-regular fa-calendar" />
+        <StyledSpan>Due Date:</StyledSpan>
+        <DateSpan color={dateObj.color}>{dateObj.date}</DateSpan>
+      </ContentDiv>
+      <ContentDiv>
+        <StyledIcon className="fa-solid fa-arrow-up" />
+        <StyledSpan>Priority:</StyledSpan>
+        <span>{formatPriority(toDo.priority)}</span>
+      </ContentDiv>
+      <ContentDiv>
+        <StyledIcon className="fa-solid fa-arrows-up-down-left-right" />
+        <StyledSpan>Complexity:</StyledSpan>
+        <span>{formatComplexity(toDo.complexity)}</span>
+      </ContentDiv>
+      <ContentDiv>
+        {toDo.tags.map((tag) => {
+          return <Tag key={tag.id}>{tag.tag}</Tag>;
+        })}
+      </ContentDiv>
+    </ContentContainer>
+  );
 };
 
-export default CardContent
+export default CardContent;
 
 CardContent.propTypes = {
-    toDo: PropTypes.object,
+  toDo: PropTypes.object,
 };

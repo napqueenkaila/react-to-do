@@ -1,9 +1,7 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { PropTypes } from "prop-types";
 import styled from "styled-components";
 import { v4 as uuid } from "uuid";
-import { ToDoContext } from "../../context/ToDoContext";
-import { useParams } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -36,19 +34,12 @@ const ListItem = styled.li`
   padding: 20px;
 `;
 
-const CompleteSubtaskBtn = styled.button`
-  border: none;
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
-`;
-
 const RemoveSubtaskBtn = styled.button`
   border: none;
 `;
 
 const Subtasks = ({ subtasks, handleSubtaskChange }) => {
-  const [subtaskItem, setSubtaskItem] = useState(""); 
+  const [subtaskItem, setSubtaskItem] = useState("");
 
   const handleAddSubtask = (e) => {
     e.preventDefault();
@@ -58,11 +49,13 @@ const Subtasks = ({ subtasks, handleSubtaskChange }) => {
     handleSubtaskChange(subtaskArray);
     setSubtaskItem("");
   };
-  
+
   const removeSubtask = (subtaskId) => {
-    const updatedSubtasks = subtasks.filter(subtask => subtask.id !== subtaskId)
-    handleSubtaskChange(updatedSubtasks)
-  }
+    const updatedSubtasks = subtasks.filter(
+      (subtask) => subtask.id !== subtaskId
+    );
+    handleSubtaskChange(updatedSubtasks);
+  };
 
   return (
     <Container>
