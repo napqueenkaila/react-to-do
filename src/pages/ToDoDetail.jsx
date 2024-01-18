@@ -30,8 +30,6 @@ const PageTitle = styled.h1`
   color: #000;
 `;
 
-
-
 const ToDoContainer = styled.div``;
 
 const ButtonContainer = styled.div`
@@ -80,24 +78,8 @@ const RepeatTask = styled.button`
   gap: 12px;
 `;
 
-const CompleteSubtaskBtn = styled.button`
-  border: none;
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
-`;
-
-const RemoveSubtaskBtn = styled.button`
-  border: none;
-`;
-
 const ToDoDetail = () => {
-  const {
-    toDos,
-    handleDeleteToDo,
-    handleDeleteSubtask,
-    handleCompleteSubtask,
-  } = useContext(ToDoContext);
+  const { toDos, handleDeleteToDo } = useContext(ToDoContext);
 
   const currentToDoId = useParams().id;
   const currentToDo = toDos.find((toDo) => toDo.id === currentToDoId);
@@ -112,11 +94,13 @@ const ToDoDetail = () => {
         <PageTitle>Task Details</PageTitle>
       </PageHeader>
       <ToDoContainer>
-        <ToDoCard toDo={currentToDo} hasButtons={false} hasProgressBar={true} />
-        <SubtaskList
-          currentToDo={currentToDo}
+        <ToDoCard
+          toDo={currentToDo}
           currentToDoId={currentToDoId}
+          hasButtons={false}
+          hasProgressBar={true}
         />
+        <SubtaskList currentToDo={currentToDo} currentToDoId={currentToDoId} />
       </ToDoContainer>
       <ButtonContainer>
         <EditTask to={`/editToDo/${currentToDoId}`}>Edit Task</EditTask>

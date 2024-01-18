@@ -115,3 +115,15 @@ export const formatComplexity = (complexity) => {
     return `High (${complexity}/10)`;
   }
 };
+
+// need to update toDo.completed if 100% subtasks complete 
+export const getCompletionPercentage = (toDo) => {
+  const subtasksLength = toDo.subtasks.length;
+  const completedSubtasksLength = toDo.subtasks.filter(
+    (subtask) => subtask.completed
+  ).length;
+  let completionPercentage = Math.floor(
+    subtasksLength !== 0 ? (completedSubtasksLength / subtasksLength) * 100 : 0
+  );
+  return completionPercentage;
+};

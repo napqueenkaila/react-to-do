@@ -5,6 +5,7 @@ import {
   formatComplexity,
   formatPriority,
 } from "../../utils/formatData";
+import ProgressBar from "./ProgressBar";
 
 const ContentContainer = styled.div``;
 
@@ -34,7 +35,7 @@ const Tag = styled.div`
   text-align: center;
 `;
 
-const CardContent = ({ toDo }) => {
+const CardContent = ({ toDo, hasProgressBar }) => {
   const dateObj = getDateObj(toDo.date, toDo.time);
 
   return (
@@ -59,6 +60,9 @@ const CardContent = ({ toDo }) => {
           return <Tag key={tag.id}>{tag.tag}</Tag>;
         })}
       </ContentDiv>
+      {hasProgressBar ? (
+        <ProgressBar toDo={toDo}/>
+      ) : null}
     </ContentContainer>
   );
 };
@@ -67,4 +71,5 @@ export default CardContent;
 
 CardContent.propTypes = {
   toDo: PropTypes.object,
+  hasProgressBar: PropTypes.bool,
 };

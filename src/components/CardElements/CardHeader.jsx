@@ -1,12 +1,19 @@
 import { Link } from "react-router-dom";
-import { PropTypes } from "prop-types"
+import { PropTypes } from "prop-types";
 import styled from "styled-components";
+import { getDateObj } from "../../utils/formatData";
 
 const HeaderDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 0;
+`;
+
+const TitleDiv = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
 `;
 
 const Title = styled.h3`
@@ -32,28 +39,39 @@ const StyledLink = styled(Link)`
   color: #000;
 `;
 
-const CardHeader = ({toDo, hasButtons, handleCompleteTask}) => {
-    return (
-      <HeaderDiv>
+const CardHeader = ({ toDo, hasButtons, handleCompleteTask }) => {
+  const dateObj = getDateObj(toDo.date, toDo.time);
+  return (
+    <HeaderDiv>
+      <TitleDiv>
+        <div
+          style={{
+            backgroundColor: `${dateObj.color}`,
+            width: "15px",
+            height: "15px",
+            borderRadius: "50%",
+          }}
+        />
         <Title>{toDo.toDoName}</Title>
-        {hasButtons ? (
-          <IconDiv>
-            <StyledLink to={`/editToDo/${toDo.id}`}>
-              <HeaderIcons className="fa-solid fa-pen-to-square" />
-            </StyledLink>
-            <HeaderIcons
-              className="fa-solid fa-check"
-              style={
-                toDo.completed
-                  ? { backgroundColor: "#0d99ff", color: "#fff" }
-                  : { backgroundColor: "#DEECF6", color: "#25282B" }
-              }
-              onClick={() => handleCompleteTask(toDo.id, toDo.completed)}
-            />
-          </IconDiv>
-        ) : null}
-      </HeaderDiv>
-    );
+      </TitleDiv>
+      {hasButtons ? (
+        <IconDiv>
+          <StyledLink to={`/editToDo/${toDo.id}`}>
+            <HeaderIcons className="fa-solid fa-pen-to-square" />
+          </StyledLink>
+          <HeaderIcons
+            className="fa-solid fa-check"
+            style={
+              toDo.completed
+                ? { backgroundColor: "#0d99ff", color: "#fff" }
+                : { backgroundColor: "#DEECF6", color: "#25282B" }
+            }
+            onClick={() => handleCompleteTask(toDo.id, toDo.completed)}
+          />
+        </IconDiv>
+      ) : null}
+    </HeaderDiv>
+  );
 };
 
 export default CardHeader;

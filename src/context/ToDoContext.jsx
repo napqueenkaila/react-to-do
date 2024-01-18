@@ -50,7 +50,7 @@ export const ToDoProvider = ({ children }) => {
     setToDos(updatedToDos);
   };
 
-  const handleCompleteSubtask = (subtaskId, currentToDo, currentToDoId) => {
+  const handleCompleteSubtask = (subtaskId, currentToDo) => {
     const updatedSubtasks = currentToDo.subtasks.map((subtask) => {
       if (subtaskId === subtask.id) {
         return { ...subtask, completed: !subtask.completed };
@@ -60,7 +60,7 @@ export const ToDoProvider = ({ children }) => {
     });
 
     const updatedToDos = toDos.map((toDo) => {
-      if (currentToDoId === toDo.id) {
+      if (currentToDo.id === toDo.id) {
         return { ...toDo, subtasks: updatedSubtasks };
       } else {
         return { ...toDo };
@@ -69,12 +69,12 @@ export const ToDoProvider = ({ children }) => {
     setToDos(updatedToDos);
   };
 
-  const handleDeleteSubtask = (id, currentToDo, currentToDoId) => {
+  const handleDeleteSubtask = (id, currentToDo) => {
     const updatedSubtasks = currentToDo.subtasks.filter(
       (subtask) => subtask.id !== id
     );
     const updatedToDos = toDos.map((toDo) => {
-      if (currentToDoId === toDo.id) {
+      if (currentToDo.id === toDo.id) {
         return { ...toDo, subtasks: updatedSubtasks };
       } else {
         return { ...toDo };

@@ -45,7 +45,7 @@ const RemoveSubtaskBtn = styled(CompleteSubtaskBtn)`
   background-color: #deecf6;
 `;
 
-const SubtaskList = ({ currentToDo, currentToDoId }) => {
+const SubtaskList = ({ currentToDo }) => {
   const { handleCompleteSubtask, handleDeleteSubtask } =
     useContext(ToDoContext);
 
@@ -61,13 +61,9 @@ const SubtaskList = ({ currentToDo, currentToDoId }) => {
                 <ButtonDiv>
                   <CompleteSubtaskBtn
                     onClick={() =>
-                      handleCompleteSubtask(
-                        subtask.id,
-                        currentToDo,
-                        currentToDoId
-                      )
+                      handleCompleteSubtask(subtask.id, currentToDo)
                     }
-                    completed={subtask.completed.toString()}
+                    $completed={subtask.completed.toString()}
                     style={
                       subtask.completed
                         ? { background: "#0d99ff" }
@@ -77,13 +73,7 @@ const SubtaskList = ({ currentToDo, currentToDoId }) => {
                     <i className="fa-solid fa-check"></i>
                   </CompleteSubtaskBtn>
                   <RemoveSubtaskBtn
-                    onClick={() =>
-                      handleDeleteSubtask(
-                        subtask.id,
-                        currentToDo,
-                        currentToDoId
-                      )
-                    }
+                    onClick={() => handleDeleteSubtask(subtask.id, currentToDo)}
                   >
                     <i className="fa-solid fa-trash"></i>
                   </RemoveSubtaskBtn>
