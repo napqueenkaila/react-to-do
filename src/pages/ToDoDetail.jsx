@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ToDoCard from "../components/CardElements/ToDoCard";
 import { useContext } from "react";
 import { ToDoContext } from "../context/ToDoContext";
+import SubtaskList from "../components/CardElements/SubtaskList";
 
 const PageContainer = styled.div`
   max-width: 500px;
@@ -28,6 +29,8 @@ const PageTitle = styled.h1`
   font-size: 24px;
   color: #000;
 `;
+
+
 
 const ToDoContainer = styled.div``;
 
@@ -109,51 +112,11 @@ const ToDoDetail = () => {
         <PageTitle>Task Details</PageTitle>
       </PageHeader>
       <ToDoContainer>
-        <ToDoCard toDo={currentToDo} hasButtons={false} />
-        <p>
-          Task Completed<span>(completion percentage)</span>
-        </p>
-        <div>
-          <p>Checklist for subtasks</p>
-          <ol>
-            {currentToDo.subtasks.map((subtask) => {
-              return (
-                <li key={subtask.id}>
-                  {subtask.subtask}
-                  <CompleteSubtaskBtn
-                    onClick={() =>
-                      handleCompleteSubtask(
-                        subtask.id,
-                        subtask.completed,
-                        currentToDo,
-                        currentToDoId
-                      )
-                    }
-                    completed={subtask.completed.toString()}
-                    style={
-                      subtask.completed
-                        ? { background: "#0d99ff" }
-                        : { background: "#deecf6" }
-                    }
-                  >
-                    <i className="fa-solid fa-check"></i>
-                  </CompleteSubtaskBtn>
-                  <RemoveSubtaskBtn
-                    onClick={() =>
-                      handleDeleteSubtask(
-                        subtask.id,
-                        currentToDo,
-                        currentToDoId
-                      )
-                    }
-                  >
-                    <i className="fa-solid fa-trash"></i>
-                  </RemoveSubtaskBtn>
-                </li>
-              );
-            })}
-          </ol>
-        </div>
+        <ToDoCard toDo={currentToDo} hasButtons={false} hasProgressBar={true} />
+        <SubtaskList
+          currentToDo={currentToDo}
+          currentToDoId={currentToDoId}
+        />
       </ToDoContainer>
       <ButtonContainer>
         <EditTask to={`/editToDo/${currentToDoId}`}>Edit Task</EditTask>
