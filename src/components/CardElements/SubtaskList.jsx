@@ -3,11 +3,36 @@ import { PropTypes } from "prop-types";
 import { useContext } from "react";
 import { ToDoContext } from "../../context/ToDoContext";
 
-const ListContainer = styled.div``;
+const ListContainer = styled.div`
+  width: 100%;
+`;
 
 const Title = styled.h3`
   font-size: 18px;
 `;
+
+const StyledList = styled.ol`
+  // list-style-position: inside;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+`;
+
+const SubtaskItem = styled.li`
+  padding: 20px 25px;
+  background: #fff;
+  border-radius: 90px;
+  align-items: center;
+`;
+
+const StyledDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const ButtonDiv = styled.div``;
 
 const CompleteSubtaskBtn = styled.button`
   border: none;
@@ -16,8 +41,8 @@ const CompleteSubtaskBtn = styled.button`
   height: 44px;
 `;
 
-const RemoveSubtaskBtn = styled.button`
-  border: none;
+const RemoveSubtaskBtn = styled(CompleteSubtaskBtn)`
+  background-color: #deecf6;
 `;
 
 const SubtaskList = ({ currentToDo, currentToDoId }) => {
@@ -27,35 +52,47 @@ const SubtaskList = ({ currentToDo, currentToDoId }) => {
   return (
     <ListContainer>
       <Title>Checklist for Subtasks</Title>
-      <ol>
+      <StyledList>
         {currentToDo.subtasks.map((subtask) => {
           return (
-            <li key={subtask.id}>
-              {subtask.subtask}
-              <CompleteSubtaskBtn
-                onClick={() =>
-                  handleCompleteSubtask(subtask.id, currentToDo, currentToDoId)
-                }
-                completed={subtask.completed.toString()}
-                style={
-                  subtask.completed
-                    ? { background: "#0d99ff" }
-                    : { background: "#deecf6" }
-                }
-              >
-                <i className="fa-solid fa-check"></i>
-              </CompleteSubtaskBtn>
-              <RemoveSubtaskBtn
-                onClick={() =>
-                  handleDeleteSubtask(subtask.id, currentToDo, currentToDoId)
-                }
-              >
-                <i className="fa-solid fa-trash"></i>
-              </RemoveSubtaskBtn>
-            </li>
+            <SubtaskItem key={subtask.id}>
+              <StyledDiv>
+                {subtask.subtask}
+                <ButtonDiv>
+                  <CompleteSubtaskBtn
+                    onClick={() =>
+                      handleCompleteSubtask(
+                        subtask.id,
+                        currentToDo,
+                        currentToDoId
+                      )
+                    }
+                    completed={subtask.completed.toString()}
+                    style={
+                      subtask.completed
+                        ? { background: "#0d99ff" }
+                        : { background: "#deecf6" }
+                    }
+                  >
+                    <i className="fa-solid fa-check"></i>
+                  </CompleteSubtaskBtn>
+                  <RemoveSubtaskBtn
+                    onClick={() =>
+                      handleDeleteSubtask(
+                        subtask.id,
+                        currentToDo,
+                        currentToDoId
+                      )
+                    }
+                  >
+                    <i className="fa-solid fa-trash"></i>
+                  </RemoveSubtaskBtn>
+                </ButtonDiv>
+              </StyledDiv>
+            </SubtaskItem>
           );
         })}
-      </ol>
+      </StyledList>
     </ListContainer>
   );
 };
