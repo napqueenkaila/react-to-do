@@ -17,18 +17,34 @@ const Label = styled.label`
   margin-bottom: 10px;
 `;
 
+const InputDiv = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const Input = styled.input`
   border-radius: 90px;
   background: #fff;
   border: 1px solid #e2e2e2;
   padding: 20px;
+  flex-grow: 1;
 `;
 
-const TagList = styled.ol`
+const AddTagBtn = styled.button`
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  color: #fff;
+  background-color: #0d99ff;
+  font-size: 24px;
+`;
+
+const TagList = styled.div`
   display: flex;
 `;
 
-const ListItem = styled.li`
+const ListItem = styled.div`
   background: #fff;
   border-radius: 90px;
   padding: 20px;
@@ -47,16 +63,19 @@ const Tags = ({ handleTagChange, tags }) => {
   return (
     <Container>
       <Label htmlFor="tags">Add tags</Label>
-      <Input
-        type="text"
-        id="tags"
-        name="tags"
-        value={tag}
-        onChange={(e) => {
-          setTag(e.target.value);
-        }}
-      ></Input>
-      <button onClick={handleAddTag}>Add Tag</button>
+      <InputDiv>
+        <Input
+          type="text"
+          id="tags"
+          name="tags"
+          placeholder="Add Tag..."
+          value={tag}
+          onChange={(e) => {
+            setTag(e.target.value);
+          }}
+        />
+        <AddTagBtn onClick={handleAddTag}>+</AddTagBtn>
+      </InputDiv>
       <TagList>
         {tags.map((tag) => {
           return <ListItem key={tag.id}>{tag.tag}</ListItem>;

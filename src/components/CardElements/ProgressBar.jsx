@@ -1,8 +1,5 @@
 import styled from "styled-components";
 import { PropTypes } from "prop-types";
-import { getCompletionPercentage } from "../../utils/formatData";
-import { useContext } from "react";
-import { ToDoContext } from "../../context/ToDoContext";
 
 const ProgressContainer = styled.div``;
 
@@ -35,9 +32,8 @@ const Progress = styled.div`
   border-radius: 60px;
 `;
 
-const ProgressBar = ({ toDo }) => {
-  const completionPercentage = getCompletionPercentage(toDo);
-// console.log(completionPercentage)
+const ProgressBar = ({ completionPercentage }) => {
+console.log(completionPercentage)
   return (
     <ProgressContainer>
       <HeaderDiv>

@@ -12,7 +12,7 @@ const SortDiv = styled.div`
 `;
 
 const SortButton = styled.button`
-  width: 100%;
+  width: 184px;
   border-radius: 60px;
   background: #fff;
   font-size: 14px;
@@ -23,6 +23,7 @@ const SortButton = styled.button`
 const SortOption = styled.div`
   display: flex;
   padding: 14px;
+  // width: 184px;
 `;
 
 const Sort = ({ setSortType }) => {

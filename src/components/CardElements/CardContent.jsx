@@ -4,10 +4,16 @@ import {
   getDateObj,
   formatComplexity,
   formatPriority,
+  getCompletionPercentage,
 } from "../../utils/formatData";
 import ProgressBar from "./ProgressBar";
+import ProgressRadial from "./ProgressRadial";
 
-const ContentContainer = styled.div``;
+const ContentContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 const ContentDiv = styled.div`
   display: flex;
@@ -35,34 +41,42 @@ const Tag = styled.div`
   text-align: center;
 `;
 
-const CardContent = ({ toDo, hasProgressBar }) => {
+const CardContent = ({ toDo, hasProgressBar, hasProgressRadial }) => {
   const dateObj = getDateObj(toDo.date, toDo.time);
-
+  const completionPercentage = getCompletionPercentage(toDo);
   return (
     <ContentContainer>
-      <ContentDiv>
-        <StyledIcon className="fa-regular fa-calendar" />
-        <StyledSpan>Due Date:</StyledSpan>
-        <DateSpan color={dateObj.color}>{dateObj.date}</DateSpan>
-      </ContentDiv>
-      <ContentDiv>
-        <StyledIcon className="fa-solid fa-arrow-up" />
-        <StyledSpan>Priority:</StyledSpan>
-        <span>{formatPriority(toDo.priority)}</span>
-      </ContentDiv>
-      <ContentDiv>
-        <StyledIcon className="fa-solid fa-arrows-up-down-left-right" />
-        <StyledSpan>Complexity:</StyledSpan>
-        <span>{formatComplexity(toDo.complexity)}</span>
-      </ContentDiv>
-      <ContentDiv>
-        {toDo.tags.map((tag) => {
-          return <Tag key={tag.id}>{tag.tag}</Tag>;
-        })}
-      </ContentDiv>
-      {hasProgressBar ? (
-        <ProgressBar toDo={toDo}/>
-      ) : null}
+      <div>
+        <ContentDiv>
+          <StyledIcon className="fa-regular fa-calendar" />
+          <StyledSpan>Due Date:</StyledSpan>
+          <DateSpan color={dateObj.color}>{dateObj.date}</DateSpan>
+        </ContentDiv>
+        <ContentDiv>
+          <StyledIcon className="fa-solid fa-arrow-up" />
+          <StyledSpan>Priority:</StyledSpan>
+          <span>{formatPriority(toDo.priority)}</span>
+        </ContentDiv>
+        <ContentDiv>
+          <StyledIcon className="fa-solid fa-arrows-up-down-left-right" />
+          <StyledSpan>Complexity:</StyledSpan>
+          <span>{formatComplexity(toDo.complexity)}</span>
+        </ContentDiv>
+        <ContentDiv>
+          {toDo.tags.map((tag) => {
+            return <Tag key={tag.id}>{tag.tag}</Tag>;
+          })}
+        </ContentDiv>
+        {hasProgressBar ? (
+          <ProgressBar completionPercentage={completionPercentage} />
+        ) : null}
+      </div>
+      <div>
+        {hasProgressRadial ? (
+          <ProgressRadial completionPercentage={completionPercentage}
+            color={dateObj.color} />
+        ) : null}
+      </div>
     </ContentContainer>
   );
 };
@@ -72,4 +86,5 @@ export default CardContent;
 CardContent.propTypes = {
   toDo: PropTypes.object,
   hasProgressBar: PropTypes.bool,
+  hasProgressRadial: PropTypes.bool,
 };
