@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { PropTypes } from "prop-types";
 
 const FilterButton = styled.button`
-  width: 100%;
+  width: 184px;
   border-radius: 60px;
   background: #fff;
   font-size: 14px;
@@ -23,6 +23,7 @@ const OptionsDiv = styled.div`
 const FilterOption = styled.label`
   display: flex;
   padding: 14px;
+  width: 184px;
 `;
 
 const FilterTags = ({ filterOptions, filterTags, setFilterTags }) => {
@@ -31,7 +32,7 @@ const FilterTags = ({ filterOptions, filterTags, setFilterTags }) => {
   const filterHandler = (e) => {
     if (e.target.checked) {
       setFilterTags(
-        filterTags.filter((filterTag) => filterTag === e.target.value)
+        [...filterTags, e.target.value]
       );
     } else {
       setFilterTags(

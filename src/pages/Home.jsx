@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useContext, useState } from "react";
+import { ToDoContext } from "../context/ToDoContext";
 import ToDoCard from "../components/CardElements/ToDoCard";
 import Sort from "../components/Sort";
-import { ToDoContext } from "../context/ToDoContext";
-import { sortToDos } from "../utils/sortFunctions";
 import FilterTags from "../components/FilterTags";
+import PowerMode from "../components/PowerMode/PowerMode";
+import { sortToDos } from "../utils/sortFunctions";
 
 const HomeContainer = styled.div`
   display: flex;
@@ -13,7 +14,7 @@ const HomeContainer = styled.div`
   align-items: center;
   width: 100%;
   max-width: 500px;
-  margin: 1.5rem auto;
+  margin: 0 auto;
 `;
 
 const AddNewButton = styled.button`
@@ -27,6 +28,7 @@ const AddNewButton = styled.button`
 
 const SearchDiv = styled.div`
   width: 100%;
+  margin: 1rem;
 `;
 
 const SearchInput = styled.input`
@@ -37,35 +39,40 @@ const SearchInput = styled.input`
 `;
 
 const FilterDiv = styled.div`
-  margin: 20px 0;
+  width: 100%;
   display: flex;
+  justify-content: space-between;
+`;
+
+const PowerModeDiv = styled.div`
+  margin: 1rem;
 `;
 
 const ToDoDiv = styled.div`
   width: 100%;
 `;
 
+const NoTasksDiv = styled.div`
+  margin: 0 auto;
+`;
+
 const Home = () => {
   const { toDos, handleCompleteToDo } = useContext(ToDoContext);
 
   const setTags = new Set(
-   toDos ? toDos
-      .map((toDo) => toDo.tags)
-      .flat()
-      .map((tag) => tag.tag) : null
+    toDos
+      ? toDos
+          .map((toDo) => toDo.tags)
+          .flat()
+          .map((tag) => tag.tag)
+      : null
   );
 
   const allTags = [...setTags];
 
   const [searchInput, setSearchInput] = useState("");
   const [sortType, setSortType] = useState("");
-  const [filterTags, setFilterTags] = useState(allTags);
-
-  
-  // if (toDos && filterTags.length === 0) {
-  //   setFilterTags(allTags);
-  // }
-  console.log(filterTags)
+  const [filterTags, setFilterTags] = useState([]);
 
   const filteredItems = toDos
     ? toDos
@@ -75,7 +82,7 @@ const Home = () => {
             ? filterTags.some((filterTag) =>
                 toDo.tags.map((tag) => tag.tag).includes(filterTag)
               )
-            : null
+            : toDo
         )
     : toDos;
 
@@ -100,23 +107,27 @@ const Home = () => {
           setFilterTags={setFilterTags}
         />
       </FilterDiv>
+      <PowerModeDiv>
+        <PowerMode></PowerMode>
+      </PowerModeDiv>
       <ToDoDiv>
-        {filteredItems ? (
-          filteredItems
-            .sort((a, b) => sortToDos(a, b, sortType))
-            .map((toDo) => {
-              return (
-                <ToDoCard
-                  key={toDo.id}
-                  toDo={toDo}
-                  hasButtons={true}
-                  handleCompleteToDo={() => handleCompleteToDo(toDo.id, toDo.completed)}
-                />
-              );
-            })
-        ) : (
-          <div>No tasks</div>
-        )}
+        {filteredItems
+          ? filteredItems
+              .sort((a, b) => sortToDos(a, b, sortType))
+              .map((toDo) => {
+                return (
+                  <ToDoCard
+                    key={toDo.id}
+                    toDo={toDo}
+                    hasButtons={true}
+                    hasProgressRadial={true}
+                    handleCompleteToDo={() =>
+                      handleCompleteToDo(toDo.id, toDo.completed)
+                    }
+                  />
+                );
+              })
+          : null}
       </ToDoDiv>
       <Link to="/addToDo">
         <AddNewButton>+ Add New Task</AddNewButton>
