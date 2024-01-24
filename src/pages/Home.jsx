@@ -6,7 +6,7 @@ import ToDoCard from "../components/CardElements/ToDoCard";
 import Sort from "../components/Sort";
 import FilterTags from "../components/FilterTags";
 import PowerMode from "../components/PowerMode/PowerMode";
-import { sortToDos } from "../utils/sortFunctions";
+import { sortToDos, powerModeFilter } from "../utils/sortFunctions";
 
 const HomeContainer = styled.div`
   display: flex;
@@ -54,7 +54,8 @@ const ToDoDiv = styled.div`
 
 const Home = () => {
   const { toDos } = useContext(ToDoContext);
-// console.log(toDos)
+  const [powerMode, setPowerMode] = useState(false);
+
   const setTags = new Set(
     toDos
       ? toDos
@@ -86,6 +87,14 @@ const Home = () => {
     setSearchInput(e.target.value.toLowerCase());
   };
 
+  const handlePowerMode = () => {
+    setPowerMode((prevState) => !prevState);
+  };
+
+  const powerModeToDo = toDos
+    .sort(powerModeFilter)
+    .find((toDo) => !toDo.completed);
+
   return (
     <HomeContainer>
       <SearchDiv>
@@ -104,23 +113,30 @@ const Home = () => {
         />
       </FilterDiv>
       <PowerModeDiv>
-        <PowerMode></PowerMode>
+        <PowerMode handlePowerMode={handlePowerMode} powerMode={powerMode} />
       </PowerModeDiv>
       <ToDoDiv>
-        {filteredItems
-          ? filteredItems
-              .sort((a, b) => sortToDos(a, b, sortType))
-              .map((toDo) => {
-                return (
-                  <ToDoCard
-                    key={toDo.id}
-                    toDo={toDo}
-                    hasButtons={true}
-                    hasProgressRadial={true}
-                  />
-                );
-              })
-          : null}
+        {powerMode ? (
+          <ToDoCard
+            key={powerModeToDo.id}
+            toDo={powerModeToDo}
+            hasButtons={true}
+            hasProgressRadial={true}
+          />
+        ) : filteredItems ? (
+          filteredItems
+            .sort((a, b) => sortToDos(a, b, sortType))
+            .map((toDo) => {
+              return (
+                <ToDoCard
+                  key={toDo.id}
+                  toDo={toDo}
+                  hasButtons={true}
+                  hasProgressRadial={true}
+                />
+              );
+            })
+        ) : null}
       </ToDoDiv>
       <Link to="/addToDo">
         <AddNewButton>+ Add New Task</AddNewButton>

@@ -2,12 +2,12 @@ export const sortToDos = (a, b, sortType) => {
     if (sortType === "ascending-priority") {
         return a.priority - b.priority
     } else if (sortType === "descending-priority") {
-        return b.priority-a.priority
+        return b.priority - a.priority
     } else if (sortType === "ascending-complexity") {
         return a.complexity - b.complexity
-    } else if (sortType === "descending-complexity") { 
+    } else if (sortType === "descending-complexity") {
         return b.complexity - a.complexity
-    } else if (sortType === "ascending-date") { 
+    } else if (sortType === "ascending-date") {
         //now to future
         const dateOne = new Date(a.date).getTime();
         const dateTwo = new Date(b.date).getTime()
@@ -16,7 +16,13 @@ export const sortToDos = (a, b, sortType) => {
         const dateOne = new Date(a.date).getTime()
         const dateTwo = new Date(b.date).getTime()
         return dateTwo - dateOne
-     } else {
+    } else {
         return 0
     }
-}
+};
+
+export const powerModeFilter = (a, b) => {
+  const toDoA = a.priority + a.complexity;
+  const toDoB = b.priority + b.complexity;
+  return toDoB - toDoA;
+};
