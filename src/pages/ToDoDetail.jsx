@@ -113,7 +113,7 @@ const ToDoDetail = () => {
           Delete Task
         </DeleteTask>
         <RepeatTask
-          onClick={(e) => {
+          onClick={() => {
             handleRepeatToDo(currentToDo)
             navigate("/")
           }}

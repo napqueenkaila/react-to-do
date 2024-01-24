@@ -33,7 +33,7 @@ const Progress = styled.div`
 `;
 
 const ProgressBar = ({ completionPercentage }) => {
-console.log(completionPercentage)
+
   return (
     <ProgressContainer>
       <HeaderDiv>
@@ -50,5 +50,5 @@ console.log(completionPercentage)
 export default ProgressBar;
 
 ProgressBar.propTypes = {
-  toDo: PropTypes.object,
+  completionPercentage: PropTypes.number,
 };
