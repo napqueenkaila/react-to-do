@@ -52,13 +52,9 @@ const ToDoDiv = styled.div`
   width: 100%;
 `;
 
-const NoTasksDiv = styled.div`
-  margin: 0 auto;
-`;
-
 const Home = () => {
-  const { toDos, handleCompleteToDo } = useContext(ToDoContext);
-
+  const { toDos } = useContext(ToDoContext);
+// console.log(toDos)
   const setTags = new Set(
     toDos
       ? toDos
@@ -121,9 +117,6 @@ const Home = () => {
                     toDo={toDo}
                     hasButtons={true}
                     hasProgressRadial={true}
-                    handleCompleteToDo={() =>
-                      handleCompleteToDo(toDo.id, toDo.completed)
-                    }
                   />
                 );
               })

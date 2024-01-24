@@ -125,5 +125,9 @@ export const getCompletionPercentage = (toDo) => {
   let completionPercentage = Math.floor(
     subtasksLength !== 0 ? (completedSubtasksLength / subtasksLength) * 100 : 0
   );
+
+  if (toDo.completed) {
+    completionPercentage === 100
+  }
   return completionPercentage;
 };
