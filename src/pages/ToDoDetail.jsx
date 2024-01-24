@@ -79,7 +79,7 @@ const RepeatTask = styled.button`
 `;
 
 const ToDoDetail = () => {
-  const { toDos, handleDeleteToDo } = useContext(ToDoContext);
+  const { toDos, handleDeleteToDo, handleRepeatToDo } = useContext(ToDoContext);
 
   const currentToDoId = useParams().id;
   const currentToDo = toDos.find((toDo) => toDo.id === currentToDoId);
@@ -112,7 +112,12 @@ const ToDoDetail = () => {
         >
           Delete Task
         </DeleteTask>
-        <RepeatTask>
+        <RepeatTask
+          onClick={(e) => {
+            handleRepeatToDo(currentToDo)
+            navigate("/")
+          }}
+        >
           <i className="fa-solid fa-repeat"></i>Repeat Task
         </RepeatTask>
       </ButtonContainer>

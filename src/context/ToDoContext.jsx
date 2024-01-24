@@ -1,5 +1,6 @@
 import { useEffect, createContext } from "react";
 import { PropTypes } from "prop-types";
+import { v4 as uuid } from "uuid";
 import useLocalState from "../utils/useLocalState";
 
 export const getLocalStorageToDos = () => {
@@ -50,6 +51,11 @@ export const ToDoProvider = ({ children }) => {
     setToDos(updatedToDos);
   };
 
+  const handleRepeatToDo = (currentToDo) => {
+    const copyCurrentToDo = { ...currentToDo, id: uuid() }
+    setToDos([...toDos, copyCurrentToDo])
+  }
+
   const handleCompleteSubtask = (subtaskId, currentToDo) => {
     const updatedSubtasks = currentToDo.subtasks.map((subtask) => {
       if (subtaskId === subtask.id) {
@@ -91,6 +97,7 @@ export const ToDoProvider = ({ children }) => {
         submitNewToDo,
         updateToDo,
         handleDeleteToDo,
+        handleRepeatToDo,
         handleCompleteToDo,
         handleDeleteSubtask,
         handleCompleteSubtask,

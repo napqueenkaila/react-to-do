@@ -131,3 +131,5 @@ export const getCompletionPercentage = (toDo) => {
   }
   return completionPercentage;
 };
+
+
