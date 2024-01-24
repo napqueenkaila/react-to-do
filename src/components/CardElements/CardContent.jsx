@@ -73,8 +73,10 @@ const CardContent = ({ toDo, hasProgressBar, hasProgressRadial }) => {
       </div>
       <div>
         {hasProgressRadial ? (
-          <ProgressRadial completionPercentage={completionPercentage}
-            color={dateObj.color} />
+          <ProgressRadial
+            completionPercentage={completionPercentage}
+            color={dateObj.color}
+          />
         ) : null}
       </div>
     </ContentContainer>
@@ -87,4 +89,5 @@ CardContent.propTypes = {
   toDo: PropTypes.object,
   hasProgressBar: PropTypes.bool,
   hasProgressRadial: PropTypes.bool,
+  completionPercentage: PropTypes.number,
 };

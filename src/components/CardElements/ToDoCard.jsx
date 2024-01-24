@@ -21,7 +21,6 @@ const StyledLink = styled(Link)`
 
 const ToDoCard = ({
   toDo,
-  handleCompleteToDo,
   hasButtons,
   hasProgressBar,
   hasProgressRadial,
@@ -32,7 +31,6 @@ const ToDoCard = ({
         <CardHeader
           toDo={toDo}
           hasButtons={hasButtons}
-          handleCompleteTask={handleCompleteToDo}
         />
         <StyledLink to={`/toDoDetail/${toDo.id}`}>
           <CardContent
@@ -53,7 +51,6 @@ export default ToDoCard;
 ToDoCard.propTypes = {
   toDo: PropTypes.object,
   hasButtons: PropTypes.bool,
-  handleCompleteToDo: PropTypes.func,
   hasProgressBar: PropTypes.bool,
   hasProgressRadial: PropTypes.bool,
 };

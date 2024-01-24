@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import styled from "styled-components";
 import { getDateObj } from "../../utils/formatData";
+import { useContext } from "react";
+import { ToDoContext } from "../../context/ToDoContext";
 
 const HeaderDiv = styled.div`
   display: flex;
@@ -39,7 +41,8 @@ const StyledLink = styled(Link)`
   color: #000;
 `;
 
-const CardHeader = ({ toDo, hasButtons, handleCompleteTask }) => {
+const CardHeader = ({ toDo, hasButtons,  }) => {
+  const {handleCompleteToDo} = useContext(ToDoContext)
   const dateObj = getDateObj(toDo.date, toDo.time);
   return (
     <HeaderDiv>
@@ -66,7 +69,7 @@ const CardHeader = ({ toDo, hasButtons, handleCompleteTask }) => {
                 ? { backgroundColor: "#0d99ff", color: "#fff" }
                 : { backgroundColor: "#DEECF6", color: "#25282B" }
             }
-            onClick={() => handleCompleteTask(toDo.id, toDo.completed)}
+            onClick={() => handleCompleteToDo(toDo.id, toDo.completed)}
           />
         </IconDiv>
       ) : null}
@@ -79,5 +82,4 @@ export default CardHeader;
 CardHeader.propTypes = {
   toDo: PropTypes.object,
   hasButtons: PropTypes.bool,
-  handleCompleteTask: PropTypes.func,
 };
