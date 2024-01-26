@@ -5,7 +5,7 @@ import { ToDoContext } from "../context/ToDoContext";
 import ToDoCard from "../components/CardElements/ToDoCard";
 import Sort from "../components/Sort";
 import FilterTags from "../components/FilterTags";
-import PowerMode from "../components/PowerMode/PowerMode";
+import PowerMode from "../components/PowerMode";
 import { sortToDos, powerModeFilter } from "../utils/sortFunctions";
 
 const HomeContainer = styled.div`
@@ -91,9 +91,9 @@ const Home = () => {
     setPowerMode((prevState) => !prevState);
   };
 
-  const powerModeToDo = toDos
-    .sort(powerModeFilter)
-    .find((toDo) => !toDo.completed);
+  const powerModeToDo = powerMode
+    ? toDos.sort(powerModeFilter).find((toDo) => !toDo.completed)
+    : toDos;
 
   return (
     <HomeContainer>

@@ -4,7 +4,6 @@ import {
   getDateObj,
   formatComplexity,
   formatPriority,
-  getCompletionPercentage,
 } from "../../utils/formatData";
 import ProgressBar from "./ProgressBar";
 import ProgressRadial from "./ProgressRadial";
@@ -41,9 +40,14 @@ const Tag = styled.div`
   text-align: center;
 `;
 
-const CardContent = ({ toDo, hasProgressBar, hasProgressRadial }) => {
+const CardContent = ({
+  toDo,
+  hasProgressBar,
+  hasProgressRadial,
+  completionPercentage,
+}) => {
   const dateObj = getDateObj(toDo.date, toDo.time);
-  const completionPercentage = getCompletionPercentage(toDo);
+
   return (
     <ContentContainer>
       <div>

@@ -23,7 +23,6 @@ const SortButton = styled.button`
 const SortOption = styled.div`
   display: flex;
   padding: 14px;
-  // width: 184px;
 `;
 
 const Sort = ({ setSortType }) => {

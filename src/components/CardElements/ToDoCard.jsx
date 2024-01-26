@@ -3,8 +3,8 @@ import { PropTypes } from "prop-types";
 import styled from "styled-components";
 import CardHeader from "./CardHeader";
 import CardContent from "./CardContent";
-// import ProgressBar from "./ProgressBar";
-// import ProgressRadial from "./ProgressRadial";
+import ProgressBar from "./ProgressBar";
+import { getCompletionPercentage } from "../../utils/formatData";
 
 const CardContainer = styled.div`
   border-radius: 18px;
@@ -19,27 +19,21 @@ const StyledLink = styled(Link)`
   color: #000;
 `;
 
-const ToDoCard = ({
-  toDo,
-  hasButtons,
-  hasProgressBar,
-  hasProgressRadial,
-}) => {
+const ToDoCard = ({ toDo, hasButtons, hasProgressBar, hasProgressRadial }) => {
+  const completionPercentage = getCompletionPercentage(toDo);
   return (
     <>
       <CardContainer key={toDo.id}>
-        <CardHeader
-          toDo={toDo}
-          hasButtons={hasButtons}
-        />
+        <CardHeader toDo={toDo} hasButtons={hasButtons} />
         <StyledLink to={`/toDoDetail/${toDo.id}`}>
           <CardContent
             toDo={toDo}
-            hasProgressBar={hasProgressBar}
             hasProgressRadial={hasProgressRadial}
+            completionPercentage={completionPercentage}
           />
-          {/* {hasProgressBar ? (<ProgressBar />) : null} */}
-          {/* {hasProgressRadial ? (<ProgressRadial/>): null} */}
+          {hasProgressBar ? (
+            <ProgressBar completionPercentage={completionPercentage} />
+          ) : null}
         </StyledLink>
       </CardContainer>
     </>
