@@ -65,8 +65,8 @@ const AddToDo = () => {
       <Form
         formData={formData}
         setFormData={setFormData}
-        submitToDo={(e) => {
-          submitNewToDo(e, formData);
+        submitToDo={() => {
+          submitNewToDo( formData);
           navigate("/");
         }}
       />

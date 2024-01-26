@@ -55,8 +55,8 @@ const EditToDo = () => {
       <Form
         formData={currentToDo}
         setFormData={setCurrentToDo}
-        submitToDo={(e) => {
-          updateToDo(e, currentToDoId, currentToDo);
+        submitToDo={() => {
+          updateToDo( currentToDoId, currentToDo);
           navigate("/");
         }}
       />

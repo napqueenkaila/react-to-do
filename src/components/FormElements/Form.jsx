@@ -61,7 +61,7 @@ const Form = ({ formData, setFormData, submitToDo }) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    submitToDo(e);
+    submitToDo();
   };
 
   return (

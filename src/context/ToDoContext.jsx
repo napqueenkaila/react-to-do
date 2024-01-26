@@ -17,13 +17,11 @@ export const ToDoProvider = ({ children }) => {
     setToDos(storedToDos);
   }, []);
 
-  const submitNewToDo = (e, formData) => {
-    e.preventDefault();
+  const submitNewToDo = (formData) => {
     setToDos(toDos ? [...toDos, formData] : [formData]);
   };
 
-  const updateToDo = (e, currentToDoId, currentToDo) => {
-    e.preventDefault();
+  const updateToDo = ( currentToDoId, currentToDo) => {
     const updatedToDos = toDos.map((toDo) => {
       if (toDo.id === currentToDoId) {
         return currentToDo;
@@ -39,7 +37,7 @@ export const ToDoProvider = ({ children }) => {
       if (id === toDo.id) {
         return { ...toDo, completed: !completed };
       } else {
-        return { ...toDo };
+        return toDo ;
       }
     });
     setToDos(updatedToDos);
@@ -61,7 +59,7 @@ export const ToDoProvider = ({ children }) => {
       if (subtaskId === subtask.id) {
         return { ...subtask, completed: !subtask.completed };
       } else {
-        return { ...subtask };
+        return subtask;
       }
     });
 
@@ -69,7 +67,7 @@ export const ToDoProvider = ({ children }) => {
       if (currentToDo.id === toDo.id) {
         return { ...toDo, subtasks: updatedSubtasks };
       } else {
-        return { ...toDo };
+        return toDo;
       }
     });
     setToDos(updatedToDos);
@@ -83,7 +81,7 @@ export const ToDoProvider = ({ children }) => {
       if (currentToDo.id === toDo.id) {
         return { ...toDo, subtasks: updatedSubtasks };
       } else {
-        return { ...toDo };
+        return toDo;
       }
     });
     setToDos(updatedToDos);
