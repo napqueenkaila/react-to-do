@@ -1,15 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { AnimatePresence, motion } from "framer-motion";
 import { PropTypes } from "prop-types";
-
-const SortDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0px 16px 45px 0px rgba(0, 0, 0, 0.16);
-  position: absolute;
-`;
 
 const SortButton = styled.button`
   width: 184px;
@@ -20,9 +12,23 @@ const SortButton = styled.button`
   padding: 10px 46px;
 `;
 
-const SortOption = styled.div`
+const OptionsContainer = styled(motion.div)`
   display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 14px;
+  position: absolute;
+  width: 184px;
+  box-shadow: 0px 16px 45px 0px rgba(0, 0, 0, 0.16);
+  border-radius: 20px;
+  transform-origin: 50% 0%;
+`;
+
+const OptionDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
   padding: 14px;
+  overflow: hidden;
 `;
 
 const Sort = ({ setSortType }) => {
@@ -33,16 +39,36 @@ const Sort = ({ setSortType }) => {
     setOpen(false);
   };
 
+  const containerVars = {
+    initial: { scaleY: 0 },
+    animate: {
+      scaleY: 1,
+      transition: { duration: 0.4, ease: [0.12, 0, 0.39, 0] },
+    },
+    exit: {
+      scaleY: 0,
+      transition: {
+        duration: 0.4,
+        ease: [0.12, 0, 0.39, 1],
+      },
+    },
+  };
+
   return (
     <div>
       <SortButton onClick={() => setOpen((prevState) => !prevState)}>
         Sort <i className="fa-solid fa-arrow-down"></i>
       </SortButton>
-      {open ? (
-        <SortDiv>
-          <SortOption>
-            <label htmlFor="default">
-              Default
+      <AnimatePresence>
+        {open ? (
+          <OptionsContainer
+            variants={containerVars}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            <OptionDiv>
+              <label htmlFor="default">Default</label>
               <input
                 type="radio"
                 name="sort"
@@ -50,11 +76,9 @@ const Sort = ({ setSortType }) => {
                 value="default"
                 onChange={handleSortChange}
               />
-            </label>
-          </SortOption>
-          <SortOption>
-            <label htmlFor="ascending-priority">
-              Ascending Priority
+            </OptionDiv>
+            <OptionDiv>
+              <label htmlFor="ascending-priority">Ascending Priority</label>
               <input
                 type="radio"
                 name="sort"
@@ -62,11 +86,9 @@ const Sort = ({ setSortType }) => {
                 value="ascending-priority"
                 onChange={handleSortChange}
               />
-            </label>
-          </SortOption>
-          <SortOption>
-            <label htmlFor="descending-priority">
-              Descending Priority
+            </OptionDiv>
+            <OptionDiv>
+              <label htmlFor="descending-priority">Descending Priority</label>
               <input
                 type="radio"
                 name="sort"
@@ -74,11 +96,11 @@ const Sort = ({ setSortType }) => {
                 value="descending-priority"
                 onChange={handleSortChange}
               />
-            </label>
-          </SortOption>
-          <SortOption>
-            <label htmlFor="descending-complexity">
-              Descending Complexity
+            </OptionDiv>
+            <OptionDiv>
+              <label htmlFor="descending-complexity">
+                Descending Complexity
+              </label>
               <input
                 type="radio"
                 name="sort"
@@ -86,11 +108,9 @@ const Sort = ({ setSortType }) => {
                 value="descending-complexity"
                 onChange={handleSortChange}
               />
-            </label>
-          </SortOption>
-          <SortOption>
-            <label htmlFor="ascending-complexity">
-              Ascending Complexity
+            </OptionDiv>
+            <OptionDiv>
+              <label htmlFor="ascending-complexity">Ascending Complexity</label>
               <input
                 type="radio"
                 name="sort"
@@ -98,11 +118,9 @@ const Sort = ({ setSortType }) => {
                 value="ascending-complexity"
                 onChange={handleSortChange}
               />
-            </label>
-          </SortOption>
-          <SortOption>
-            <label htmlFor="ascending-date">
-              Ascending Date
+            </OptionDiv>
+            <OptionDiv>
+              <label htmlFor="ascending-date">Ascending Date</label>
               <input
                 type="radio"
                 name="sort"
@@ -110,11 +128,9 @@ const Sort = ({ setSortType }) => {
                 value="ascending-date"
                 onChange={handleSortChange}
               />
-            </label>
-          </SortOption>
-          <SortOption>
-            <label htmlFor="descending-date">
-              Descending Date
+            </OptionDiv>
+            <OptionDiv>
+              <label htmlFor="descending-date">Descending Date</label>
               <input
                 type="radio"
                 name="sort"
@@ -122,10 +138,10 @@ const Sort = ({ setSortType }) => {
                 value="descending-date"
                 onChange={handleSortChange}
               />
-            </label>
-          </SortOption>
-        </SortDiv>
-      ) : null}
+            </OptionDiv>
+          </OptionsContainer>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 };

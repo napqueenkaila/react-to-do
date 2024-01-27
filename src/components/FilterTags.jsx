@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { PropTypes } from "prop-types";
+import { AnimatePresence, motion } from "framer-motion";
 
 const FilterButton = styled.button`
   width: 184px;
@@ -11,19 +12,22 @@ const FilterButton = styled.button`
   padding: 10px 46px;
 `;
 
-const OptionsDiv = styled.div`
+const OptionsContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   background: #fff;
   border-radius: 14px;
-  box-shadow: 0px 16px 45px 0px rgba(0, 0, 0, 0.16);
   position: absolute;
+  width: 184px;
+  box-shadow: 0px 16px 45px 0px rgba(0, 0, 0, 0.16);
+  border-radius: 20px;
+  transform-origin: 50% 0%;
 `;
 
-const FilterOption = styled.label`
+const OptionDiv = styled.div`
   display: flex;
+  justify-content: space-between;
   padding: 14px;
-  width: 184px;
 `;
 
 const FilterTags = ({ filterOptions, filterTags, setFilterTags }) => {
@@ -31,9 +35,7 @@ const FilterTags = ({ filterOptions, filterTags, setFilterTags }) => {
 
   const filterHandler = (e) => {
     if (e.target.checked) {
-      setFilterTags(
-        [...filterTags, e.target.value]
-      );
+      setFilterTags([...filterTags, e.target.value]);
     } else {
       setFilterTags(
         filterTags.filter((filterTag) => filterTag !== e.target.value)
@@ -41,28 +43,48 @@ const FilterTags = ({ filterOptions, filterTags, setFilterTags }) => {
     }
   };
 
+  const containerVars = {
+    initial: { scaleY: 0 },
+    animate: {
+      scaleY: 1,
+      transition: { duration: 0.4, ease: [0.12, 0, 0.39, 0] },
+    },
+    exit: {
+      scaleY: 0,
+      transition: { duration: 0.4, ease: [0.12, 0, 0.39, 1] },
+    },
+  };
+
   return (
     <div>
       <FilterButton onClick={() => setOpen((prevState) => !prevState)}>
         Filter <i className="fa-solid fa-arrow-down"></i>
       </FilterButton>
-      <OptionsDiv>
-        {open
-          ? filterOptions.map((tag) => {
+      <AnimatePresence>
+        {open ? (
+          <OptionsContainer
+            variants={containerVars}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+          >
+            {filterOptions.map((tag) => {
               return (
-                <FilterOption key={tag} htmlFor={tag}>
-                  {tag}
+                <OptionDiv key={tag}>
+                  <label htmlFor={tag}>{tag}</label>
                   <input
                     type="checkbox"
+                    className="checkbox"
                     value={tag}
                     id={tag}
                     onChange={(e) => filterHandler(e)}
                   />
-                </FilterOption>
+                </OptionDiv>
               );
-            })
-          : null}
-      </OptionsDiv>
+            })}
+          </OptionsContainer>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 };
