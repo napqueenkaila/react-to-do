@@ -21,19 +21,20 @@ const PageHeader = styled.div`
   position: relative;
 `;
 
-const PageTitle = styled.h1`
-  font-size: 24px;
-  color: #000;
-  font-weight: 500;
-`;
-
 const BackButton = styled.i`
   background: #fff;
+  color: #0d0d0d;
   padding: 11px;
   border-radius: 50%;
   position: absolute;
   left: 0;
   top: 16px;
+`;
+
+const PageTitle = styled.h1`
+  font-size: 24px;
+  color: #000;
+  font-weight: 500;
 `;
 
 const EditToDo = () => {
