@@ -1,34 +1,11 @@
 import { useState } from "react";
-import styled from "styled-components";
 import { PropTypes } from "prop-types";
-import { AnimatePresence, motion } from "framer-motion";
-
-const FilterButton = styled.button`
-  width: 184px;
-  border-radius: 60px;
-  background: #fff;
-  font-size: 14px;
-  border: 1px solid var(--Stroke, #e2e2e2);
-  padding: 10px 46px;
-`;
-
-const OptionsContainer = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  border-radius: 14px;
-  position: absolute;
-  width: 184px;
-  box-shadow: 0px 16px 45px 0px rgba(0, 0, 0, 0.16);
-  border-radius: 20px;
-  transform-origin: 50% 0%;
-`;
-
-const OptionDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 14px;
-`;
+import { AnimatePresence } from "framer-motion";
+import {
+  DropdownBtn,
+  OptionsContainer,
+  OptionDiv,
+} from "./styles/shared.styled";
 
 const FilterTags = ({ filterOptions, filterTags, setFilterTags }) => {
   const [open, setOpen] = useState(false);
@@ -57,9 +34,9 @@ const FilterTags = ({ filterOptions, filterTags, setFilterTags }) => {
 
   return (
     <div>
-      <FilterButton onClick={() => setOpen((prevState) => !prevState)}>
+      <DropdownBtn onClick={() => setOpen((prevState) => !prevState)}>
         Filter <i className="fa-solid fa-arrow-down"></i>
-      </FilterButton>
+      </DropdownBtn>
       <AnimatePresence>
         {open ? (
           <OptionsContainer

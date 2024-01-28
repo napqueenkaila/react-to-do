@@ -1,88 +1,15 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import ToDoCard from "../components/CardElements/ToDoCard";
 import { useContext } from "react";
 import { ToDoContext } from "../context/ToDoContext";
 import SubtaskList from "../components/CardElements/SubtaskList";
-
-const PageContainer = styled.div`
-  max-width: 500px;
-  width: 100%;
-  margin: 0 auto;
-`;
-
-const PageHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin-bottom: 35px;
-  position: relative;
-`;
-
-const BackButton = styled.i`
-  background: #fff;
-  color: #0d0d0d;
-  padding: 11px;
-  border-radius: 50%;
-  position: absolute;
-  left: 0;
-  top: 16px;
-`;
-
-const PageTitle = styled.h1`
-  font-size: 24px;
-  color: #000;
-  font-weight: 500;
-`;
-
-const ToDoContainer = styled.div``;
-
-const ButtonContainer = styled.div`
-  display: grid;
-  grid-template: 1fr 1fr / 1fr 1fr;
-  grid-template-areas:
-    "edit delete"
-    "repeat repeat";
-  grid-row-gap: 25px;
-  grid-column-gap: 30px;
-  margin-top: 30px;
-`;
-
-const EditTask = styled(Link)`
-  grid-area: edit;
-  background: rgba(13, 153, 255, 0.1);
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 500;
-  color: #090003;
-  border-radius: 120px;
-  text-align: center;
-  padding: 20px 50px;
-`;
-
-const DeleteTask = styled.button`
-  grid-area: delete;
-  border: none;
-  background: rgba(255, 64, 52, 0.1);
-  border-radius: 120px;
-  font-weight: 500;
-  font-size: 18px;
-`;
-
-const RepeatTask = styled.button`
-  grid-area: repeat;
-  border: none;
-  border-radius: 120px;
-  background: #0d99ff;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-`;
+import {
+  PageContainer,
+  PageHeader,
+  PageTitle,
+  BackButton,
+} from "./styles/shared.styled";
+import { ToDoContainer, ButtonContainer, EditBtn, DeleteBtn, RepeatBtn } from "./styles/ToDoDetail.styled";
 
 const ToDoDetail = () => {
   const { toDos, handleDeleteToDo, handleRepeatToDo } = useContext(ToDoContext);
@@ -105,27 +32,28 @@ const ToDoDetail = () => {
           currentToDoId={currentToDoId}
           hasButtons={false}
           hasProgressBar={true}
+          hasAnimation={false}
         />
         <SubtaskList currentToDo={currentToDo} currentToDoId={currentToDoId} />
       </ToDoContainer>
       <ButtonContainer>
-        <EditTask to={`/editToDo/${currentToDoId}`}>Edit Task</EditTask>
-        <DeleteTask
+        <EditBtn to={`/editToDo/${currentToDoId}`}>Edit Task</EditBtn>
+        <DeleteBtn
           onClick={(e) => {
             handleDeleteToDo(e, currentToDoId);
             navigate("/");
           }}
         >
           Delete Task
-        </DeleteTask>
-        <RepeatTask
+        </DeleteBtn>
+        <RepeatBtn
           onClick={() => {
-            handleRepeatToDo(currentToDo)
-            navigate("/")
+            handleRepeatToDo(currentToDo);
+            navigate("/");
           }}
         >
           <i className="fa-solid fa-repeat"></i>Repeat Task
-        </RepeatTask>
+        </RepeatBtn>
       </ButtonContainer>
     </PageContainer>
   );

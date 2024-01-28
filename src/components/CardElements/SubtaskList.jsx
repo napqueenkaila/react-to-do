@@ -1,49 +1,16 @@
-import styled from "styled-components";
-import { PropTypes } from "prop-types";
 import { useContext } from "react";
+import { PropTypes } from "prop-types";
 import { ToDoContext } from "../../context/ToDoContext";
-
-const ListContainer = styled.div`
-  width: 100%;
-`;
-
-const Title = styled.h3`
-  font-size: 18px;
-`;
-
-const StyledList = styled.ol`
-  // list-style-position: inside;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-`;
-
-const SubtaskItem = styled.li`
-  padding: 20px 25px;
-  background: #fff;
-  border-radius: 90px;
-  align-items: center;
-`;
-
-const StyledDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const ButtonDiv = styled.div``;
-
-const CompleteSubtaskBtn = styled.button`
-  border: none;
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
-`;
-
-const RemoveSubtaskBtn = styled(CompleteSubtaskBtn)`
-  background-color: #deecf6;
-`;
+import {
+  ListContainer,
+  Title,
+  StyledList,
+  SubtaskItem,
+  StyledDiv,
+  ButtonDiv,
+  CompleteSubtaskBtn,
+  RemoveSubtaskBtn,
+} from "./styles/SubtaskList.styled";
 
 const SubtaskList = ({ currentToDo }) => {
   const { handleCompleteSubtask, handleDeleteSubtask } =

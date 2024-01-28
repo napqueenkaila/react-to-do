@@ -1,5 +1,4 @@
 import { PropTypes } from "prop-types";
-import styled from "styled-components";
 import {
   getDateObj,
   formatComplexity,
@@ -7,38 +6,14 @@ import {
 } from "../../utils/formatData";
 import ProgressBar from "./ProgressBar";
 import ProgressRadial from "./ProgressRadial";
-
-const ContentContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const ContentDiv = styled.div`
-  display: flex;
-  gap: 10px;
-  margin: 10px auto;
-`;
-
-const StyledIcon = styled.i`
-  color: #090003;
-`;
-
-const StyledSpan = styled.span`
-  color: #717171;
-`;
-
-const DateSpan = styled.span`
-  color: ${(props) => props.color};
-`;
-
-const Tag = styled.div`
-  background: #fff6e8;
-  padding: 6px 8px;
-  border-radius: 60px;
-  font-size: 12px;
-  text-align: center;
-`;
+import {
+  ContentContainer,
+  ContentDiv,
+  StyledIcon,
+  StyledSpan,
+  DateSpan,
+  Tag,
+} from "./styles/CardContent.styled";
 
 const CardContent = ({
   toDo,
@@ -68,7 +43,7 @@ const CardContent = ({
         </ContentDiv>
         <ContentDiv>
           {toDo.tags.map((tag) => {
-            return <Tag key={tag.id}>{tag.tag}</Tag>;
+            return <Tag key={tag.id} style={{backgroundColor: tag.color}}>{tag.tag}</Tag>;
           })}
         </ContentDiv>
         {hasProgressBar ? (

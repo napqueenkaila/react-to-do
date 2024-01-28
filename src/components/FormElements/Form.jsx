@@ -1,35 +1,10 @@
 import { PropTypes } from "prop-types";
-import styled from "styled-components";
 import ToDoName from "./ToDoName";
 import { PriorityButtons, ComplexityButtons } from "./PriorityComplexity";
 import { DueDate, DueTime } from "./Due";
 import Subtasks from "./Subtasks";
 import Tags from "./Tags";
-
-const ToDoForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 500px;
-`;
-
-const DateContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const SaveButton = styled.button`
-  background: #0d99ff;
-  color: #fff;
-  border-radius: 90px;
-  width: 175px;
-  padding: 20px 50px;
-  border: none;
-  font-size: 18px;
-  margin-top: 30px;
-`;
+import { ToDoForm, DateContainer, SaveButton } from "./styles/Form.styled";
 
 const Form = ({ formData, setFormData, submitToDo }) => {
   const handleFormChange = (e) => {

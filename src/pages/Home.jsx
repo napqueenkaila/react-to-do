@@ -1,56 +1,19 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { ToDoContext } from "../context/ToDoContext";
 import ToDoCard from "../components/CardElements/ToDoCard";
 import Sort from "../components/Sort";
 import FilterTags from "../components/FilterTags";
-import PowerMode from "../components/PowerMode";
 import { sortToDos, powerModeFilter } from "../utils/sortFunctions";
-
-const HomeContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-`;
-
-const AddNewButton = styled.button`
-  background: #0d99ff;
-  color: #fff;
-  padding: 20px;
-  border-radius: 90px;
-  border: none;
-  font-size: 18px;
-`;
-
-const SearchDiv = styled.div`
-  width: 100%;
-  margin: 1rem;
-`;
-
-const SearchInput = styled.input`
-  width: 100%;
-  border-radius: 60px;
-  padding: 1rem;
-  border: 1px solid var(--Stroke, #e2e2e2);
-`;
-
-const FilterDiv = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const PowerModeDiv = styled.div`
-  margin: 1rem;
-`;
-
-const ToDoDiv = styled.div`
-  width: 100%;
-`;
+import {
+  HomeContainer,
+  StyledBtn,
+  SearchDiv,
+  SearchInput,
+  FilterDiv,
+  PowerModeDiv,
+  ToDoDiv,
+} from "./styles/Home.styled";
 
 const Home = () => {
   const { toDos } = useContext(ToDoContext);
@@ -105,23 +68,27 @@ const Home = () => {
         ></SearchInput>
       </SearchDiv>
       <FilterDiv>
-        <Sort setSortType={setSortType} />
+        <Sort className="child" setSortType={setSortType} />
         <FilterTags
+          className="child"
           filterOptions={allTags}
           filterTags={filterTags}
           setFilterTags={setFilterTags}
         />
       </FilterDiv>
       <PowerModeDiv>
-        <PowerMode handlePowerMode={handlePowerMode} powerMode={powerMode} />
+        <StyledBtn onClick={handlePowerMode}>
+          <i className="fa-solid fa-power-off"></i> Power Mode {powerMode ? "On" : "Off"}
+        </StyledBtn>
       </PowerModeDiv>
       <ToDoDiv>
         {powerMode ? (
-          <ToDoCard
+          <ToDoCard 
             key={powerModeToDo.id}
             toDo={powerModeToDo}
             hasButtons={true}
             hasProgressRadial={true}
+            hasAnimation={true}
           />
         ) : filteredItems ? (
           filteredItems
@@ -133,13 +100,14 @@ const Home = () => {
                   toDo={toDo}
                   hasButtons={true}
                   hasProgressRadial={true}
+                  hasAnimation={true}
                 />
               );
             })
         ) : null}
       </ToDoDiv>
       <Link to="/addToDo">
-        <AddNewButton>+ Add New Task</AddNewButton>
+        <StyledBtn>+ Add New Task</StyledBtn>
       </Link>
     </HomeContainer>
   );

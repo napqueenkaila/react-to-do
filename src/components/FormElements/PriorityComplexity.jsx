@@ -1,35 +1,5 @@
 import { PropTypes } from "prop-types";
-import styled from "styled-components";
-
-const SectionContainer = styled.div`
-  width: 100%;
-`;
-
-const ButtonContainer = styled.div`
-  width: 100%;
-  height: 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 10px 0;
-`;
-
-const Title = styled.p`
-  color: #090003;
-  font-size: 18px;
-  font-weight: 500;
-`;
-
-const Label = styled.label`
-  padding: 10px;
-  width: 30px;
-  height: 30px;
-  border-radius: 60px;
-`;
-
-const Input = styled.input`
-  display: none;
-`;
+import { SectionContainer, ButtonContainer, Title, Label, Input } from "./styles/PriorityComplexity.styled";
 
 const levels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 

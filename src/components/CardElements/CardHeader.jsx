@@ -1,48 +1,18 @@
-import { Link } from "react-router-dom";
-import { PropTypes } from "prop-types";
-import styled from "styled-components";
-import { getDateObj } from "../../utils/formatData";
 import { useContext } from "react";
+import { PropTypes } from "prop-types";
 import { ToDoContext } from "../../context/ToDoContext";
+import { getDateObj } from "../../utils/formatData";
+import {
+  HeaderDiv,
+  TitleDiv,
+  Title,
+  IconDiv,
+  HeaderIcons,
+  StyledLink,
+} from "./styles/CardHeader.styled";
 
-const HeaderDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0;
-`;
-
-const TitleDiv = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`;
-
-const Title = styled.h3`
-  font-size: 20px;
-  font-weight: 500;
-`;
-
-const IconDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-`;
-
-const HeaderIcons = styled.i`
-  background-color: rgba(13, 153, 255, 0.1);
-  padding: 10px;
-  border-radius: 90px;
-  display: flex;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: #000;
-`;
-
-const CardHeader = ({ toDo, hasButtons,  }) => {
-  const {handleCompleteToDo} = useContext(ToDoContext)
+const CardHeader = ({ toDo, hasButtons }) => {
+  const { handleCompleteToDo } = useContext(ToDoContext);
   const dateObj = getDateObj(toDo.date, toDo.time);
   return (
     <HeaderDiv>

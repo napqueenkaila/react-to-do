@@ -1,41 +1,13 @@
 import { useContext, useState } from "react";
-import styled from "styled-components";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import Form from "../components/FormElements/Form";
 import { ToDoContext } from "../context/ToDoContext";
-
-const EditToDoContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  max-width: 500px;
-  width: 100%;
-  margin: 0 auto;
-`;
-
-const PageHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin-bottom: 35px;
-  position: relative;
-`;
-
-const BackButton = styled.i`
-  background: #fff;
-  color: #0d0d0d;
-  padding: 11px;
-  border-radius: 50%;
-  position: absolute;
-  left: 0;
-  top: 16px;
-`;
-
-const PageTitle = styled.h1`
-  font-size: 24px;
-  color: #000;
-  font-weight: 500;
-`;
+import Form from "../components/FormElements/Form";
+import {
+  PageContainer,
+  PageHeader,
+  PageTitle,
+  BackButton,
+} from "./styles/shared.styled";
 
 const EditToDo = () => {
   const { toDos, updateToDo } = useContext(ToDoContext);
@@ -46,7 +18,7 @@ const EditToDo = () => {
   const navigate = useNavigate();
 
   return (
-    <EditToDoContainer>
+    <PageContainer>
       <PageHeader>
         <Link to="/">
           <BackButton className="fa-solid fa-arrow-left"></BackButton>
@@ -57,11 +29,11 @@ const EditToDo = () => {
         formData={currentToDo}
         setFormData={setCurrentToDo}
         submitToDo={() => {
-          updateToDo( currentToDoId, currentToDo);
+          updateToDo(currentToDoId, currentToDo);
           navigate("/");
         }}
       />
-    </EditToDoContainer>
+    </PageContainer>
   );
 };
 
