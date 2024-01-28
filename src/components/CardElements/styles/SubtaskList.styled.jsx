@@ -9,7 +9,6 @@ export const Title = styled.h3`
 `;
 
 export const StyledList = styled.ol`
-  // list-style-position: inside;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -29,15 +28,24 @@ export const StyledDiv = styled.div`
   justify-content: space-between;
 `;
 
-export const ButtonDiv = styled.div``;
+export const ButtonDiv = styled.div`
+  display: flex;
+  gap: 10px;
+`;
 
 export const CompleteSubtaskBtn = styled.button`
   border: none;
   border-radius: 50%;
   width: 44px;
   height: 44px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const RemoveSubtaskBtn = styled(CompleteSubtaskBtn)`
   background-color: #deecf6;
+  &:hover {
+    cursor: pointer;
+  }
 `;

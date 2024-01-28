@@ -68,12 +68,12 @@ const Home = () => {
         ></SearchInput>
       </SearchDiv>
       <FilterDiv>
-        <Sort className="child" setSortType={setSortType} />
+        <Sort setSortType={setSortType} powerMode={powerMode} />
         <FilterTags
-          className="child"
           filterOptions={allTags}
           filterTags={filterTags}
           setFilterTags={setFilterTags}
+          powerMode={powerMode}
         />
       </FilterDiv>
       <PowerModeDiv>
@@ -88,7 +88,6 @@ const Home = () => {
             toDo={powerModeToDo}
             hasButtons={true}
             hasProgressRadial={true}
-            hasAnimation={true}
           />
         ) : filteredItems ? (
           filteredItems
@@ -100,7 +99,6 @@ const Home = () => {
                   toDo={toDo}
                   hasButtons={true}
                   hasProgressRadial={true}
-                  hasAnimation={true}
                 />
               );
             })

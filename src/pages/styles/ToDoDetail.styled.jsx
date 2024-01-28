@@ -33,6 +33,10 @@ export const DeleteBtn = styled.button`
   border-radius: 120px;
   font-weight: 500;
   font-size: 18px;
+
+  &:hover{
+    cursor: pointer;
+  }
 `;
 
 export const RepeatBtn = styled.button`
@@ -47,4 +51,8 @@ export const RepeatBtn = styled.button`
   align-items: center;
   justify-content: center;
   gap: 12px;
+
+  &:hover{
+    cursor: pointer;
+  }
 `;

@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { PropTypes } from "prop-types";
-import { DropdownBtn, OptionsContainer, OptionDiv } from "./styles/shared.styled";
+import {
+  DropdownBtn,
+  OptionsContainer,
+  OptionDiv,
+} from "./styles/shared.styled";
 
-const Sort = ({ setSortType }) => {
+const Sort = ({ setSortType, powerMode }) => {
   const [open, setOpen] = useState(false);
 
   const handleSortChange = (e) => {
@@ -28,7 +32,10 @@ const Sort = ({ setSortType }) => {
 
   return (
     <div>
-      <DropdownBtn onClick={() => setOpen((prevState) => !prevState)}>
+      <DropdownBtn
+        onClick={() => setOpen((prevState) => !prevState)}
+        disabled={powerMode}
+      >
         Sort <i className="fa-solid fa-arrow-down"></i>
       </DropdownBtn>
       <AnimatePresence>
@@ -121,4 +128,5 @@ const Sort = ({ setSortType }) => {
 export default Sort;
 Sort.propTypes = {
   setSortType: PropTypes.func,
+  powerMode: PropTypes.bool,
 };

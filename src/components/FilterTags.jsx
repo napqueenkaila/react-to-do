@@ -2,12 +2,17 @@ import { useState } from "react";
 import { PropTypes } from "prop-types";
 import { AnimatePresence } from "framer-motion";
 import {
-  DropdownBtn,
+  FilterDropdownBtn,
   OptionsContainer,
   OptionDiv,
 } from "./styles/shared.styled";
 
-const FilterTags = ({ filterOptions, filterTags, setFilterTags }) => {
+const FilterTags = ({
+  filterOptions,
+  filterTags,
+  setFilterTags,
+  powerMode,
+}) => {
   const [open, setOpen] = useState(false);
 
   const filterHandler = (e) => {
@@ -32,11 +37,16 @@ const FilterTags = ({ filterOptions, filterTags, setFilterTags }) => {
     },
   };
 
+  console.log(filterOptions.length);
   return (
     <div>
-      <DropdownBtn onClick={() => setOpen((prevState) => !prevState)}>
+      <FilterDropdownBtn
+        onClick={() => setOpen((prevState) => !prevState)}
+        disabled={powerMode}
+        filterOptions={filterOptions.length}
+      >
         Filter <i className="fa-solid fa-arrow-down"></i>
-      </DropdownBtn>
+      </FilterDropdownBtn>
       <AnimatePresence>
         {open ? (
           <OptionsContainer
@@ -72,4 +82,5 @@ FilterTags.propTypes = {
   filterOptions: PropTypes.array,
   filterTags: PropTypes.array,
   setFilterTags: PropTypes.func,
+  powerMode: PropTypes.bool,
 };

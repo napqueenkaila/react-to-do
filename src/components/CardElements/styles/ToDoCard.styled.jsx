@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { motion } from "framer-motion"
 import { Link } from "react-router-dom";
 
-export const CardContainer = styled(motion.div)`
+export const CardContainer = styled.div`
   border-radius: 18px;
   background: #fff;
   margin-bottom: 20px;

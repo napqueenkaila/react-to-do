@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {motion} from "framer-motion"
+import { motion } from "framer-motion";
 
 export const DropdownBtn = styled.button`
   width: 184px;
@@ -8,6 +8,16 @@ export const DropdownBtn = styled.button`
   font-size: 14px;
   border: 1px solid var(--Stroke, #e2e2e2);
   padding: 10px 46px;
+  &:hover{
+    cursor: ${(props) => props.disabled ? "not-allowed" : "pointer"};
+  }
+`;
+
+export const FilterDropdownBtn = styled(DropdownBtn)`
+  &:hover {
+    cursor: ${(props) =>
+      props.disabled || !props.filterOptions ? "not-allowed" : "pointer"};
+  }
 `;
 
 export const OptionsContainer = styled(motion.div)`

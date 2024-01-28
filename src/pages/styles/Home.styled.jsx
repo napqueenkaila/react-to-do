@@ -16,6 +16,10 @@ export const StyledBtn = styled.button`
   border-radius: 90px;
   border: none;
   font-size: 18px;
+
+  &:hover{
+    cursor: pointer;
+  }
 `;
 
 export const SearchDiv = styled.div`

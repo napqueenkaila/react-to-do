@@ -29,6 +29,10 @@ export const HeaderIcons = styled.i`
   padding: 10px;
   border-radius: 90px;
   display: flex;
+
+  &:hover{
+    cursor: pointer;
+  }
 `;
 
 export const StyledLink = styled(Link)`

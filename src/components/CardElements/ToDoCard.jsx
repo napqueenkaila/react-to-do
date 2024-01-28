@@ -5,21 +5,32 @@ import ProgressBar from "./ProgressBar";
 import { getCompletionPercentage } from "../../utils/formatData";
 import { CardContainer, StyledLink } from "./styles/ToDoCard.styled";
 
-const ToDoCard = ({ toDo, hasButtons, hasProgressBar, hasProgressRadial, hasAnimation }) => {
+const ToDoCard = ({ toDo, hasButtons, hasProgressBar, hasProgressRadial }) => {
   const completionPercentage = getCompletionPercentage(toDo);
   return (
-    <CardContainer key={toDo.id} whileHover={hasAnimation && { scale: 1.1 }}>
+    <CardContainer key={toDo.id}>
       <CardHeader toDo={toDo} hasButtons={hasButtons} />
-      <StyledLink to={`/toDoDetail/${toDo.id}`}>
-        <CardContent
-          toDo={toDo}
-          hasProgressRadial={hasProgressRadial}
-          completionPercentage={completionPercentage}
-        />
-        {hasProgressBar ? (
+      {hasButtons ? (
+        <StyledLink to={`/toDoDetail/${toDo.id}`}>
+          <CardContent
+            toDo={toDo}
+            hasProgressRadial={hasProgressRadial}
+            completionPercentage={completionPercentage}
+          />
+          {hasProgressBar ? (
+            <ProgressBar completionPercentage={completionPercentage} />
+          ) : null}
+        </StyledLink>
+      ) : (
+        <>
+          <CardContent
+            toDo={toDo}
+            hasProgressRadial={hasProgressRadial}
+            completionPercentage={completionPercentage}
+          ></CardContent>
           <ProgressBar completionPercentage={completionPercentage} />
-        ) : null}
-      </StyledLink>
+        </>
+      )}
     </CardContainer>
   );
 };

@@ -1,7 +1,7 @@
-import { Link, useParams, useNavigate } from "react-router-dom";
-import ToDoCard from "../components/CardElements/ToDoCard";
 import { useContext } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { ToDoContext } from "../context/ToDoContext";
+import ToDoCard from "../components/CardElements/ToDoCard";
 import SubtaskList from "../components/CardElements/SubtaskList";
 import {
   PageContainer,
@@ -32,7 +32,7 @@ const ToDoDetail = () => {
           currentToDoId={currentToDoId}
           hasButtons={false}
           hasProgressBar={true}
-          hasAnimation={false}
+          
         />
         <SubtaskList currentToDo={currentToDo} currentToDoId={currentToDoId} />
       </ToDoContainer>
