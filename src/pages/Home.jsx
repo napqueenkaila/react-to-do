@@ -68,7 +68,7 @@ const Home = () => {
         ></SearchInput>
       </SearchDiv>
       <FilterDiv>
-        <Sort setSortType={setSortType} powerMode={powerMode} />
+        <Sort setSortType={setSortType} powerMode={powerMode} toDos={toDos} />
         <FilterTags
           filterOptions={allTags}
           filterTags={filterTags}

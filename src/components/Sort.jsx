@@ -7,7 +7,7 @@ import {
   OptionDiv,
 } from "./styles/shared.styled";
 
-const Sort = ({ setSortType, powerMode }) => {
+const Sort = ({ setSortType, powerMode, toDos }) => {
   const [open, setOpen] = useState(false);
 
   const handleSortChange = (e) => {
@@ -34,7 +34,7 @@ const Sort = ({ setSortType, powerMode }) => {
     <div>
       <DropdownBtn
         onClick={() => setOpen((prevState) => !prevState)}
-        disabled={powerMode}
+        disabled={powerMode || !toDos}
       >
         Sort <i className="fa-solid fa-arrow-down"></i>
       </DropdownBtn>
@@ -129,4 +129,5 @@ export default Sort;
 Sort.propTypes = {
   setSortType: PropTypes.func,
   powerMode: PropTypes.bool,
+  toDos: PropTypes.array,
 };
