@@ -4,6 +4,12 @@ export const SectionContainer = styled.div`
   width: 100%;
 `;
 
+export const Title = styled.p`
+  color: #090003;
+  font-size: 18px;
+  font-weight: 500;
+`;
+
 export const ButtonContainer = styled.div`
   width: 100%;
   height: 30px;
@@ -13,17 +19,22 @@ export const ButtonContainer = styled.div`
   margin: 10px 0;
 `;
 
-export const Title = styled.p`
-  color: #090003;
-  font-size: 18px;
-  font-weight: 500;
+export const ButtonDiv = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+width: 30px;
+height: 30px;
+padding: 10px;
+border-radius: 50%;
+
+
 `;
 
 export const Label = styled.label`
-  padding: 10px;
-  width: 30px;
-  height: 30px;
-  border-radius: 60px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const Input = styled.input`

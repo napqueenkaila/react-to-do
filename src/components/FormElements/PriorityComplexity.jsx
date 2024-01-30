@@ -1,5 +1,12 @@
 import { PropTypes } from "prop-types";
-import { SectionContainer, ButtonContainer, Title, Label, Input } from "./styles/PriorityComplexity.styled";
+import {
+  SectionContainer,
+  Title,
+  ButtonContainer,
+  ButtonDiv,
+  Label,
+  Input,
+} from "./styles/PriorityComplexity.styled";
 
 const levels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -11,15 +18,14 @@ export const PriorityButtons = ({ handleFormChange, priority }) => {
         {levels.map((level) => {
           const checked = priority === level.toString();
           return (
-            <div key={level}>
-              <Label
-                htmlFor={`priority${level}`}
-                key={level}
-                style={{
-                  backgroundColor: checked ? "#0d99ff" : "rgba(13,153,255,0.1)",
-                  color: checked ? "#FFF" : "#000",
-                }}
-              >
+            <ButtonDiv
+              key={level}
+              style={{
+                backgroundColor: checked ? "#0d99ff" : "rgba(13,153,255,0.1)",
+                color: checked ? "#FFF" : "#000",
+              }}
+            >
+              <Label htmlFor={`priority${level}`} key={level}>
                 {level}
                 <Input
                   type="radio"
@@ -30,7 +36,7 @@ export const PriorityButtons = ({ handleFormChange, priority }) => {
                   onChange={handleFormChange}
                 ></Input>
               </Label>
-            </div>
+            </ButtonDiv>
           );
         })}
       </ButtonContainer>
@@ -38,7 +44,7 @@ export const PriorityButtons = ({ handleFormChange, priority }) => {
   );
 };
 
-export const ComplexityButtons = ({handleFormChange, complexity}) => {
+export const ComplexityButtons = ({ handleFormChange, complexity }) => {
   return (
     <SectionContainer>
       <Title>Select Complexity Level</Title>
@@ -46,15 +52,14 @@ export const ComplexityButtons = ({handleFormChange, complexity}) => {
         {levels.map((level) => {
           const checked = complexity === level.toString();
           return (
-            <div key={level}>
-              <Label
-                htmlFor={`complexity${level}`}
-                key={level}
-                style={{
-                  backgroundColor: checked ? "#0d99ff" : "rgba(13,153,255,0.1)",
-                  color: checked ? "#FFF" : "#000",
-                }}
-              >
+            <ButtonDiv
+              key={level}
+              style={{
+                backgroundColor: checked ? "#0d99ff" : "rgba(13,153,255,0.1)",
+                color: checked ? "#FFF" : "#000",
+              }}
+            >
+              <Label htmlFor={`complexity${level}`} key={level}>
                 {level}
                 <Input
                   type="radio"
@@ -65,7 +70,7 @@ export const ComplexityButtons = ({handleFormChange, complexity}) => {
                   onChange={handleFormChange}
                 ></Input>
               </Label>
-            </div>
+            </ButtonDiv>
           );
         })}
       </ButtonContainer>

@@ -103,7 +103,10 @@ export const formatPriority = (priority) => {
     return `Medium (${priority}/10)`;
   } else if (priority >= 8 && priority <= 10) {
     return `High (${priority}/10)`;
+  } else {
+    return "NA"
   }
+
 };
 
 export const formatComplexity = (complexity) => {
@@ -113,6 +116,8 @@ export const formatComplexity = (complexity) => {
     return `Moderate (${complexity}/10)`;
   } else if (complexity >= 8 && complexity <= 10) {
     return `High (${complexity}/10)`;
+  } else {
+    return "NA"
   }
 };
 

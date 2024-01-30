@@ -16,7 +16,7 @@ export const DropdownBtn = styled.button`
 export const FilterDropdownBtn = styled(DropdownBtn)`
   &:hover {
     cursor: ${(props) =>
-      props.disabled || !props.filterOptions ? "not-allowed" : "pointer"};
+      props.disabled || !props.$filterOptions ? "not-allowed" : "pointer"};
   }
 `;
 

@@ -11,6 +11,7 @@ export const Label = styled.label`
   font-size: 18px;
   font-weight: 500;
   margin-bottom: 12px;
+ 
 `;
 
 export const Input = styled.input`
@@ -18,4 +19,7 @@ export const Input = styled.input`
   border-radius: 90px;
   padding: 12px 24px;
   color: #aba7af;
+  &:hover {
+    cursor: pointer;
+  }
 `;

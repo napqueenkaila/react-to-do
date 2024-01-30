@@ -37,13 +37,12 @@ const FilterTags = ({
     },
   };
 
-  console.log(filterOptions.length);
   return (
     <div>
       <FilterDropdownBtn
         onClick={() => setOpen((prevState) => !prevState)}
         disabled={powerMode}
-        filterOptions={filterOptions.length}
+        $filterOptions={filterOptions.length}
       >
         Filter <i className="fa-solid fa-arrow-down"></i>
       </FilterDropdownBtn>

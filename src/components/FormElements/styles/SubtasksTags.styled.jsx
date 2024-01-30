@@ -11,20 +11,22 @@ export const Label = styled.label`
   color: #090003;
   font-size: 18px;
   font-weight: 500;
-  margin-bottom: 10px;
 `;
 
 export const InputDiv = styled.div`
   display: flex;
   align-items: center;
-`;
-
-export const Input = styled.input`
   border-radius: 90px;
   background: #fff;
   border: 1px solid #e2e2e2;
+  margin-top: 10px;
+`;
+
+export const Input = styled.input`
   padding: 20px;
   flex-grow: 1;
+  border: none;
+  border-radius: 90px;
 `;
 
 export const AddBtn = styled.button`
@@ -35,11 +37,15 @@ export const AddBtn = styled.button`
   color: #fff;
   background-color: #0d99ff;
   font-size: 24px;
+  margin-right: 10px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const SubtaskList = styled.div`
   padding: 0;
-  list-style-position:inside;
+  list-style-position: inside;
   counter-reset: list-number;
 `;
 
@@ -50,16 +56,15 @@ export const TagList = styled.div`
 `;
 
 export const ListItem = styled.div`
-
   border-radius: 90px;
-  padding: 15px;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
 export const SubtaskListItem = styled(ListItem)`
-  margin: 20px auto;
+  margin-top: 15px;
   background: #fff;
   counter-increment: list-number;
   &:before {
