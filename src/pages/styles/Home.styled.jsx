@@ -17,8 +17,9 @@ export const StyledBtn = styled.button`
   border: none;
   font-size: 18px;
 
-  &:hover{
-    cursor: pointer;
+  &:hover {
+    cursor: ${(props) =>
+      props.disabled ? "not-allowed" : "pointer"};
   }
 `;
 

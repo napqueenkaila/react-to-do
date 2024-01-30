@@ -77,7 +77,7 @@ const Home = () => {
         />
       </FilterDiv>
       <PowerModeDiv>
-        <StyledBtn onClick={handlePowerMode}>
+        <StyledBtn disabled={!toDos} onClick={handlePowerMode}>
           <i className="fa-solid fa-power-off"></i> Power Mode {powerMode ? "On" : "Off"}
         </StyledBtn>
       </PowerModeDiv>
