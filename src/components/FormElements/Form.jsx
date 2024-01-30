@@ -1,12 +1,20 @@
+import { useState } from "react";
 import { PropTypes } from "prop-types";
 import ToDoName from "./ToDoName";
 import { PriorityButtons, ComplexityButtons } from "./PriorityComplexity";
 import { DueDate, DueTime } from "./Due";
 import Subtasks from "./Subtasks";
 import Tags from "./Tags";
-import { ToDoForm, DateContainer, SaveButton } from "./styles/Form.styled";
+import {
+  ToDoForm,
+  DateContainer,
+  SaveButton,
+  ErrorMessage,
+} from "./styles/Form.styled";
 
 const Form = ({ formData, setFormData, submitToDo }) => {
+  const [errors, setErrors] = useState({});
+
   const handleFormChange = (e) => {
     setFormData((prevFormData) => {
       return {
@@ -30,17 +38,25 @@ const Form = ({ formData, setFormData, submitToDo }) => {
       return {
         ...prevFormData,
         tags: tagArray,
-      }; 
+      };
     });
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    submitToDo();
+    let newErrors = {};
+    if (formData.toDoName.length === 0) {
+      newErrors.toDoName = "Task Name is Required";
+    }
+    if (!Object.keys(newErrors).length) {
+      submitToDo();
+    } else {
+      setErrors(newErrors);
+    }
   };
 
   return (
-    <ToDoForm onSubmit={handleFormSubmit}>
+    <ToDoForm>
       <ToDoName handleFormChange={handleFormChange} value={formData.toDoName} />
       <PriorityButtons
         handleFormChange={handleFormChange}
@@ -59,7 +75,8 @@ const Form = ({ formData, setFormData, submitToDo }) => {
         handleSubtaskChange={handleSubtaskChange}
       />
       <Tags tags={formData.tags} handleTagChange={handleTagChange} />
-      <SaveButton>Save</SaveButton>
+      {errors.toDoName && <ErrorMessage>{errors.toDoName}</ErrorMessage>}
+      <SaveButton onClick={handleFormSubmit}>Save</SaveButton>
     </ToDoForm>
   );
 };
